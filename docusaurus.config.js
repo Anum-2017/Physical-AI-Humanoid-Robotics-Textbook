@@ -7,14 +7,14 @@ const config = {
   favicon: 'img/favicon.ico',
 
   // Set the production url of your site here
-  url: 'https://git@github.com:Anum-2017/Physical-AI-Humanoid-Robotics-Textbook.git',
+  url: 'https://anum-2017.github.io',
   // Set the /<baseUrl>/ pathname under which your site is served
-  // For testing locally, this is usually / or ''
-  baseUrl: '/',
+  // For GitHub pages deployment, this is usually '/<project-name>/'
+  baseUrl: '/Physical-AI-Humanoid-Robotics-Textbook/',
 
   // GitHub pages deployment config.
   organizationName: 'Anum-2017', // Usually your GitHub org/user name.
-  projectName: 'physical-ai-humanoid-robotics', // Usually your repo name.
+  projectName: 'Physical-AI-Humanoid-Robotics-Textbook', // Usually your repo name.
 
   onBrokenLinks: 'throw',
   onBrokenMarkdownLinks: 'warn',
@@ -67,8 +67,8 @@ const config = {
             position: 'left'
           },
           {
-            to: '/docs/readme', 
-            label: 'Overview', 
+            to: '/docs/intro',
+            label: 'Overview',
             position: 'left'
           },
           {
@@ -77,7 +77,7 @@ const config = {
             position: 'left'
           },
           {
-            href: 'https://github.com/Anum-2017/physical-ai-humanoid-robotics',
+            href: 'https://github.com/Anum-2017/Physical-AI-Humanoid-Robotics-Textbook',
             label: 'GitHub',
             position: 'right',
           },
@@ -113,7 +113,7 @@ const config = {
             items: [
               {
                 label: 'GitHub',
-                href: 'https://github.com/Anum-2017/physical-ai-humanoid-robotics',
+                href: 'https://github.com/Anum-2017/Physical-AI-Humanoid-Robotics-Textbook',
               },
             ],
           },
