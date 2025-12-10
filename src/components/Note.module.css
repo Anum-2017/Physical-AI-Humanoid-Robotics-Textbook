@@ -1,0 +1,11 @@
+.note {
+  border-left: 6px solid #4285f4;
+  /* background-color: #f0f4ff;  */
+  padding: 16px;
+  margin: 16px 0;
+  border-radius: 0 4px 4px 0;
+}
+
+.noteContent {
+  margin: 0;
+}

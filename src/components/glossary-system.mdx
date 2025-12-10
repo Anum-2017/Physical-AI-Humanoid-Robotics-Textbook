@@ -1,0 +1,71 @@
+---
+title: Glossary Linking System
+---
+
+# Glossary Linking System
+
+This document describes the consistent glossary linking system for the Physical AI & Humanoid Robotics textbook that ensures consistent terminology across all modules.
+
+## Glossary Link Component
+
+To link to glossary terms with tooltips, use the GlossaryLink component:
+
+```mdx
+import GlossaryLink from '@site/src/components/GlossaryLink';
+
+This module focuses on <GlossaryLink term="Physical AI" />, which is grounded in physical reality.
+
+The <GlossaryLink term="Embodied Intelligence" /> principles are crucial for understanding this concept.
+```
+
+This will render as:
+
+This module focuses on <GlossaryLink term="Physical AI" />, which is grounded in physical reality.
+
+The <GlossaryLink term="Embodied Intelligence" /> principles are crucial for understanding this concept.
+
+## Supported Terms
+
+The system currently supports these key Physical AI & Humanoid Robotics terms:
+
+- <GlossaryLink term="Physical AI" />
+- <GlossaryLink term="Embodied Intelligence" />
+- <GlossaryLink term="Simulation-to-Reality Gap" />
+- <GlossaryLink term="ROS 2" />
+- <GlossaryLink term="Gazebo" />
+- <GlossaryLink term="Isaac Sim" />
+- <GlossaryLink term="VLA" />
+
+## Custom Display Text
+
+You can customize the display text while maintaining the glossary link:
+
+```mdx
+<GlossaryLink term="ROS 2">ROS</GlossaryLink> is the foundation for many robotics applications.
+```
+
+This will render as: <GlossaryLink term="ROS 2">ROS</GlossaryLink> is the foundation for many robotics applications.
+
+## Adding New Terms
+
+To add new terms to the glossary system, update the `glossaryTerms` object in `src/components/GlossaryLink.js` with the term name, definition, and link to the glossary entry.
+
+## Usage Guidelines
+
+1. Use the GlossaryLink component consistently for all key terminology
+2. Ensure all Physical AI & Humanoid Robotics constitution terms are linked
+3. Maintain consistency in how terms are referenced across modules
+4. Include the ROS → Gazebo → Isaac → VLA stack terminology in the glossary system
+5. Use tooltips to provide quick definitions without leaving the page
+6. Ensure links point to comprehensive definitions in the main glossary
+
+## Integration with Physical AI Principles
+
+All key Physical AI concepts should be linked to ensure consistency:
+
+- <GlossaryLink term="Embodied Intelligence" /> principles
+- <GlossaryLink term="Simulation-to-Reality Gap" /> considerations
+- <GlossaryLink term="Physical AI" /> foundations
+- Technology stack: <GlossaryLink term="ROS 2" />, <GlossaryLink term="Gazebo" />, <GlossaryLink term="Isaac Sim" />, <GlossaryLink term="VLA" />
+
+This ensures consistent terminology and understanding across all modules in the textbook.

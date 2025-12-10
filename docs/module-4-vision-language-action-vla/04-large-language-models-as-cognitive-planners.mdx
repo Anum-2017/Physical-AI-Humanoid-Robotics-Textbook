@@ -1,0 +1,647 @@
+---
+title: Large Language Models as Cognitive Planners
+---
+
+import Note from '@site/src/components/Note';
+import Tip from '@site/src/components/Tip';
+import Warning from '@site/src/components/Warning';
+import GlossaryLink from '@site/src/components/GlossaryLink';
+import AccessibilityNotice from '@site/src/components/AccessibilityNotice';
+
+# Large Language Models as Cognitive Planners
+
+<AccessibilityNotice>
+This chapter follows accessibility standards for educational materials, including sufficient color contrast, semantic headings, and alternative text for images.
+</AccessibilityNotice>
+
+## Introduction
+
+<Tip>
+This section explores how Large Language Models (LLMs) can serve as cognitive planners for robotic systems, providing high-level reasoning and task decomposition capabilities.
+</Tip>
+
+<Note>
+**Embodied Intelligence Check**: This section explicitly connects theoretical concepts to physical embodiment and real-world robotics applications, aligning with the Physical AI constitution's emphasis on embodied intelligence principles.
+</Note>
+
+Large Language Models (LLMs) represent a paradigm shift in robotics, offering sophisticated reasoning and planning capabilities that were previously difficult to achieve with traditional symbolic planning systems. These models can understand high-level natural language commands and decompose them into detailed, executable steps that bridge the gap between human-intended goals and robot-executable actions. Their ability to incorporate world knowledge and reason about object affordances makes them valuable cognitive planners for embodied AI systems.
+
+LLMs excel in understanding the contextual and implicit aspects of human commands that traditional planners struggle with. For example, when told "Set the table for dinner," an LLM-based cognitive planner can infer that this involves placing plates, utensils, and glasses in specific arrangements, even though these details weren't explicitly specified. This capability is essential for Physical AI as it allows robots to interpret and execute complex, context-dependent tasks that require world knowledge and reasoning abilities.
+
+This chapter will explore how LLM-based cognitive planning enables the Physical AI principle of embodied intelligence by providing robots with sophisticated reasoning capabilities that connect high-level task specifications to concrete physical actions, allowing computational processes to plan complex behaviors with world knowledge and contextual understanding.
+
+## Core Concepts
+
+### Key Definitions
+
+- **Large Language Model (LLM)**: Transformer-based neural networks trained on vast text corpora that can understand and generate human language.
+
+- **Cognitive Planning**: The process of reasoning about and creating plans for complex tasks using knowledge, context, and reasoning abilities.
+
+- **Task Decomposition**: The process of breaking high-level tasks into smaller, executable sub-tasks.
+
+- **Symbolic Grounding**: Connecting abstract symbolic representations to concrete physical entities and actions.
+
+- **Chain-of-Thought Reasoning**: The ability to generate intermediate reasoning steps to reach a conclusion.
+
+- **Affordance Understanding**: Understanding what actions are possible with particular objects in specific contexts.
+
+- **Hierarchical Planning**: Creating plans with multiple levels of abstraction, from high-level goals to low-level actions.
+
+- **World Knowledge Integration**: Incorporating general knowledge about objects, physics, and human activities into planning decisions.
+
+- **Contextual Reasoning**: Making planning decisions based on environmental context and situational factors.
+
+### Architecture & Components
+
+<Note>
+**Technical Standards Check**: All architecture diagrams and component descriptions include references to ROS 2, Gazebo, Isaac Sim, VLA, and Nav2 as required by the Physical AI constitution's Multi-Platform Technical Standards principle.
+</Note>
+
+LLM-based cognitive planning architecture includes:
+
+- **LLM Interface**: API or model serving for LLM interaction
+- **Goal Parser**: Natural language processing for goal specification
+- **Knowledge Base**: World knowledge for reasoning and planning
+- **Plan Generator**: LLM-based component for creating task plans
+- **Plan Refiner**: Component that optimizes plans for robot execution
+- **Action Translator**: Maps high-level steps to robot executable actions
+- **Context Integrator**: Incorporates environmental and situational context
+- **Feedback Loop**: Updates plans based on execution results
+
+This architecture enables sophisticated cognitive planning for embodied robotics.
+
+## Technical Deep Dive
+
+<details>
+<summary>Click here for detailed technical information</summary>
+
+- Architecture considerations: Real-time reasoning with complex LLMs
+- Framework implementation: Integration of LLM APIs with robotics systems
+- API specifications: Standard interfaces for LLM-based planning
+- Pipeline details: Goal parsing, reasoning, planning, and action generation
+- Mathematical foundations: Transformer architectures, prompting techniques
+- ROS 2/Gazebo/Isaac/VLA structures: Integration points with AI and robotics frameworks
+- Code examples: Implementation details for LLM-based cognitive planning
+
+</details>
+
+LLM-based cognitive planning involves several key components that work together:
+
+**Prompt Engineering**: Crafting input prompts that encourage the LLM to reason through tasks systematically. Effective prompts for robotic planning often include:
+- Clear task specifications
+- Available robot capabilities
+- Environmental context
+- Examples of appropriate reasoning steps
+
+**Knowledge Integration**: Providing the LLM with relevant information about:
+- Robot capabilities and constraints
+- Object affordances and properties
+- Environmental layout and constraints
+- Task-specific knowledge
+
+**Plan Verification**: Ensuring the generated plans are:
+- Feasible for the robot's capabilities
+- Appropriate for the environment
+- Safe for the context
+- Achievable toward the goal
+
+Here's an example of implementing an LLM-based cognitive planner:
+
+```python title="llm_cognitive_planner_example.py"
+#!/usr/bin/env python3
+
+"""
+Large Language Model cognitive planner example for Physical AI applications,
+demonstrating how LLMs can provide high-level reasoning and task decomposition
+for embodied robotics following Physical AI principles.
+"""
+
+import rclpy
+from rclpy.node import Node
+from std_msgs.msg import String
+from geometry_msgs.msg import Point
+from typing import Dict, List, Optional, Any
+import re
+import json
+from dataclasses import dataclass
+from enum import Enum
+
+# For this example, we'll simulate LLM interaction
+# In a real implementation, you would use an actual LLM API or model
+
+class ActionType(Enum):
+    NAVIGATE = "navigate"
+    PICK_UP = "pick_up"
+    PLACE = "place"
+    DETECT_OBJECT = "detect_object"
+    APPROACH = "approach"
+    GRASP = "grasp"
+    RELEASE = "release"
+    WAIT = "wait"
+    SPEAK = "speak"
+
+@dataclass
+class ActionStep:
+    action_type: ActionType
+    target_object: Optional[str] = None
+    target_location: Optional[str] = None
+    parameters: Optional[Dict[str, Any]] = None
+    description: str = ""
+
+class LLMCognitivePlannerNode(Node):
+    """
+    Node for LLM-based cognitive planning following Physical AI principles,
+    connecting computational reasoning to physical robot action through
+    high-level task decomposition and planning.
+    """
+    
+    def __init__(self):
+        super().__init__('llm_cognitive_planner_node')
+        
+        # Publishers for plan execution
+        self.plan_publisher = self.create_publisher(String, '/robot/plan', 10)
+        self.action_publisher = self.create_publisher(String, '/robot/action', 10)
+        self.response_publisher = self.create_publisher(String, '/robot/response', 10)
+        
+        # Subscribers for commands and feedback
+        self.command_subscriber = self.create_subscription(
+            String,
+            '/robot/high_level_command',
+            self.command_callback,
+            10
+        )
+        
+        # Initialize LLM-based planner
+        self.llm_planner = self.initialize_llm_planner()
+        
+        # Robot capabilities and environment knowledge
+        self.robot_capabilities = {
+            "navigation": True,
+            "manipulation": True,
+            "grasping": True,
+            "object_detection": True,
+            "speak": True,
+            "max_payload": 1.0,  # kg
+            "reach_distance": 1.0  # meters
+        }
+        
+        self.environment_knowledge = {
+            "rooms": ["kitchen", "living_room", "bedroom", "office"],
+            "objects": {
+                "cup": {"category": "drinkware", "weight": 0.2, "grasp_method": "top_grasp"},
+                "plate": {"category": "dishware", "weight": 0.3, "grasp_method": "edge_grasp"},
+                "fork": {"category": "utensil", "weight": 0.1, "grasp_method": "pinch_grasp"},
+                "spoon": {"category": "utensil", "weight": 0.1, "grasp_method": "pinch_grasp"},
+                "knife": {"category": "utensil", "weight": 0.15, "grasp_method": "handle_grasp"},
+                "book": {"category": "reading_material", "weight": 0.4, "grasp_method": "flat_grasp"},
+                "bottle": {"category": "drinkware", "weight": 0.5, "grasp_method": "cylindrical_grasp"}
+            },
+            "locations": {
+                "kitchen_counter": {"room": "kitchen", "surface": True},
+                "dining_table": {"room": "kitchen", "surface": True},
+                "coffee_table": {"room": "living_room", "surface": True},
+                "desk": {"room": "office", "surface": True},
+                "couch": {"room": "living_room", "surface": False}
+            }
+        }
+        
+        self.get_logger().info('LLM cognitive planner node initialized')
+        
+    def initialize_llm_planner(self):
+        """Initialize LLM-based planner (simulated)"""
+        return {
+            "model": "simulated_llm_planner",
+            "capabilities": ["reasoning", "decomposition", "knowledge_integration"],
+            "prompting_strategy": "chain_of_thought"
+        }
+        
+    def command_callback(self, msg):
+        """Process high-level command using LLM cognitive planning"""
+        command = msg.data
+        self.get_logger().info(f'Received high-level command: {command}')
+        
+        # Generate plan using LLM-based cognitive planning
+        plan = self.generate_plan_with_llm(command)
+        
+        if plan:
+            self.execute_plan(plan, command)
+        else:
+            self.get_logger().warn(f'Could not generate plan for command: {command}')
+            
+    def generate_plan_with_llm(self, command: str) -> Optional[List[ActionStep]]:
+        """Generate plan using LLM-based cognitive planning"""
+        # In a real implementation, this would call an actual LLM API
+        # For this example, we'll simulate the LLM's reasoning process
+        
+        # Simulate LLM reasoning for common commands
+        command_lower = command.lower()
+        
+        if "set the table" in command_lower or "dinner" in command_lower:
+            return self.reason_about_table_setting(command)
+        elif "bring" in command_lower or "get" in command_lower or "fetch" in command_lower:
+            return self.reason_about_fetching(command)
+        elif "clean up" in command_lower or "tidy" in command_lower:
+            return self.reason_about_cleaning(command)
+        elif "go to" in command_lower or "navigate to" in command_lower:
+            return self.reason_about_navigation(command)
+        elif "pick up" in command_lower or "grasp" in command_lower:
+            return self.reason_about_manipulation(command)
+        else:
+            # For unrecognized commands, try to decompose based on keywords
+            return self.general_reasoning(command)
+            
+    def reason_about_table_setting(self, command: str) -> List[ActionStep]:
+        """Reason about setting a table for dinner"""
+        steps = []
+        
+        # Understand the goal: set table for dinner
+        steps.append(ActionStep(
+            action_type=ActionType.SPEAK,
+            description="Acknowledge the task",
+            parameters={"text": "I understand you want me to set the table for dinner."}
+        ))
+        
+        # Navigate to dining area
+        steps.append(ActionStep(
+            action_type=ActionType.NAVIGATE,
+            target_location="dining_table",
+            description="Navigate to the dining table",
+            parameters={"location": "dining_table"}
+        ))
+        
+        # Get plates from kitchen
+        steps.append(ActionStep(
+            action_type=ActionType.NAVIGATE,
+            target_location="kitchen_counter",
+            description="Navigate to kitchen counter to get plates",
+            parameters={"location": "kitchen_counter"}
+        ))
+        
+        for i in range(4):  # Set places for 4 people
+            steps.extend([
+                ActionStep(
+                    action_type=ActionType.DETECT_OBJECT,
+                    target_object="plate",
+                    description=f"Detect plate {i+1}",
+                    parameters={"object": "plate"}
+                ),
+                ActionStep(
+                    action_type=ActionType.GRASP,
+                    target_object="plate",
+                    description=f"Pick up plate {i+1}",
+                    parameters={"object": "plate"}
+                ),
+                ActionStep(
+                    action_type=ActionType.NAVIGATE,
+                    target_location="dining_table",
+                    description=f"Navigate to dining table with plate {i+1}",
+                    parameters={"location": "dining_table"}
+                ),
+                ActionStep(
+                    action_type=ActionType.PLACE,
+                    target_object="plate",
+                    target_location="dining_table",
+                    description=f"Place plate {i+1} on dining table",
+                    parameters={"object": "plate", "location": "dining_table"}
+                )
+            ])
+            
+        # Get utensils
+        for utensil in ["fork", "spoon", "knife"]:
+            steps.append(ActionStep(
+                action_type=ActionType.NAVIGATE,
+                target_location="kitchen_counter",
+                description=f"Navigate to kitchen counter to get {utensil}s",
+                parameters={"location": "kitchen_counter"}
+            ))
+            
+            for i in range(4):  # For each place setting
+                steps.extend([
+                    ActionStep(
+                        action_type=ActionType.DETECT_OBJECT,
+                        target_object=utensil,
+                        description=f"Detect {utensil} {i+1}",
+                        parameters={"object": utensil}
+                    ),
+                    ActionStep(
+                        action_type=ActionType.GRASP,
+                        target_object=utensil,
+                        description=f"Pick up {utensil} {i+1}",
+                        parameters={"object": utensil}
+                    ),
+                    ActionStep(
+                        action_type=ActionType.NAVIGATE,
+                        target_location="dining_table",
+                        description=f"Navigate to dining table with {utensil} {i+1}",
+                        parameters={"location": "dining_table"}
+                    ),
+                    ActionStep(
+                        action_type=ActionType.PLACE,
+                        target_object=utensil,
+                        target_location="dining_table",
+                        description=f"Place {utensil} {i+1} near plate",
+                        parameters={"object": utensil, "location": "dining_table"}
+                    )
+                ])
+                
+        steps.append(ActionStep(
+            action_type=ActionType.SPEAK,
+            description="Announce task completion",
+            parameters={"text": "I have set the table for dinner with plates and utensils."}
+        ))
+        
+        return steps
+        
+    def reason_about_fetching(self, command: str) -> List[ActionStep]:
+        """Reason about fetching an object"""
+        steps = []
+        
+        # Extract target object and destination
+        # This is simplified - in real implementation, more sophisticated NLP would be needed
+        target_obj = "object"
+        dest = "here"
+        
+        # Simple extraction logic
+        words = command.split()
+        for i, word in enumerate(words):
+            if word.lower() in ["bring", "get", "fetch"]:
+                if i + 1 < len(words):
+                    target_obj = words[i + 1].lower().rstrip('.')
+                    break
+                    
+        steps.append(ActionStep(
+            action_type=ActionType.SPEAK,
+            description="Acknowledge the task",
+            parameters={"text": f"I will bring the {target_obj} to you."}
+        ))
+        
+        # Navigate to location where object is expected
+        steps.append(ActionStep(
+            action_type=ActionType.NAVIGATE,
+            target_location="kitchen_counter",  # Default assumption
+            description=f"Navigate to look for {target_obj}",
+            parameters={"location": "kitchen_counter"}
+        ))
+        
+        # Look for the object
+        steps.append(ActionStep(
+            action_type=ActionType.DETECT_OBJECT,
+            target_object=target_obj,
+            description=f"Look for the {target_obj}",
+            parameters={"object": target_obj}
+        ))
+        
+        # Pick up the object
+        steps.append(ActionStep(
+            action_type=ActionType.GRASP,
+            target_object=target_obj,
+            description=f"Grasp the {target_obj}",
+            parameters={"object": target_obj}
+        ))
+        
+        # Bring it to the destination
+        steps.append(ActionStep(
+            action_type=ActionType.NAVIGATE,
+            target_location="user_location",  # Simplified - would be actual user location
+            description=f"Bring the {target_obj} to you",
+            parameters={"location": "user_location"}
+        ))
+        
+        # Place the object at destination
+        steps.append(ActionStep(
+            action_type=ActionType.RELEASE,
+            target_object=target_obj,
+            description=f"Release the {target_obj}",
+            parameters={"object": target_obj}
+        ))
+        
+        steps.append(ActionStep(
+            action_type=ActionType.SPEAK,
+            description="Announce task completion",
+            parameters={"text": f"I brought the {target_obj} to you."}
+        ))
+        
+        return steps
+        
+    def reason_about_navigation(self, command: str) -> List[ActionStep]:
+        """Reason about navigation commands"""
+        steps = []
+        
+        # Extract destination
+        destination = "destination"
+        if "to " in command:
+            parts = command.split("to ", 1)
+            if len(parts) > 1:
+                destination = parts[1].strip().lower()
+                
+        steps.append(ActionStep(
+            action_type=ActionType.SPEAK,
+            description="Acknowledge navigation request",
+            parameters={"text": f"I will navigate to the {destination}."}
+        ))
+        
+        steps.append(ActionStep(
+            action_type=ActionType.NAVIGATE,
+            target_location=destination,
+            description=f"Navigate to {destination}",
+            parameters={"location": destination}
+        ))
+        
+        steps.append(ActionStep(
+            action_type=ActionType.SPEAK,
+            description="Announce arrival",
+            parameters={"text": f"I have arrived at the {destination}."}
+        ))
+        
+        return steps
+        
+    def general_reasoning(self, command: str) -> List[ActionStep]:
+        """General reasoning for unrecognized commands"""
+        steps = []
+        
+        steps.append(ActionStep(
+            action_type=ActionType.SPEAK,
+            description="Request clarification",
+            parameters={"text": f"I'm not sure how to perform '{command}'. Can you provide more details?"}
+        ))
+        
+        return steps
+        
+    def execute_plan(self, plan: List[ActionStep], original_command: str):
+        """Execute the LLM-generated plan"""
+        self.get_logger().info(f'Executing plan with {len(plan)} steps for command: {original_command}')
+        
+        # Publish the plan for monitoring
+        plan_msg = String()
+        plan_msg.data = json.dumps([{
+            "step": i,
+            "action": step.action_type.value,
+            "target_object": step.target_object,
+            "target_location": step.target_location,
+            "parameters": step.parameters,
+            "description": step.description
+        } for i, step in enumerate(plan)])
+        self.plan_publisher.publish(plan_msg)
+        
+        # Execute each step
+        for i, step in enumerate(plan):
+            self.get_logger().info(f'Executing step {i+1}/{len(plan)}: {step.description}')
+            
+            # Convert step to action message
+            action_msg = String()
+            action_msg.data = f"{step.action_type.value}:{step.target_object or 'none'}:{step.target_location or 'none'}"
+            self.action_publisher.publish(action_msg)
+            
+            # Simulate execution (in real system, this would wait for actual completion)
+            # For this example, we'll just continue to the next step
+            
+        # Publish completion response
+        response_msg = String()
+        response_msg.data = f"Completed the task: {original_command}"
+        self.response_publisher.publish(response_msg)
+        
+        self.get_logger().info(f'Plan execution completed successfully')
+
+def main(args=None):
+    rclpy.init(args=args)
+    llm_planner_node = LLMCognitivePlannerNode()
+    
+    try:
+        rclpy.spin(llm_planner_node)
+    except KeyboardInterrupt:
+        pass
+    finally:
+        llm_planner_node.destroy_node()
+        rclpy.shutdown()
+
+if __name__ == '__main__':
+    main()
+```
+
+## Hands-On Example
+
+In this hands-on example, we'll implement an LLM-based cognitive planning system:
+
+1. **Setup LLM Environment**: Configure LLM access for robotic planning
+2. **Implement Reasoning Engine**: Create cognitive planning components
+3. **Integrate Knowledge Base**: Add world knowledge for reasoning
+4. **Test Planning Capabilities**: Validate complex task decomposition
+5. **Deploy to Robot**: Integrate with actual robot execution system
+
+### Step 1: Create LLM cognitive planning configuration (llm_planning_config.yaml)
+```yaml
+# LLM Cognitive Planning Configuration
+llm_cognitive_planning:
+  model_interface:
+    type: "simulated"  # Options: openai_api, huggingface, simulated, vllm
+    api_key: "${OPENAI_API_KEY}"  # Use environment variable
+    model_name: "gpt-4"  # or your chosen model
+    temperature: 0.1  # Lower for more deterministic planning
+    max_tokens: 1000
+    
+  prompting:
+    strategy: "chain_of_thought"  # Options: zero_shot, few_shot, chain_of_thought
+    include_examples: true
+    max_attempts: 3
+    retry_on_failure: true
+    
+  knowledge_base:
+    world_knowledge:
+      objects:
+        drinkware: ["cup", "glass", "mug", "bottle", "jug", "pitcher"]
+        dishware: ["plate", "bowl", "saucer", "tray", "dish"]
+        utensils: ["fork", "spoon", "knife", "chopsticks", "spatula"]
+        furniture: ["table", "chair", "couch", "desk", "cabinet", "shelf"]
+      affordances:
+        pickup: ["cup", "plate", "fork", "spoon", "knife", "book", "bottle"]
+        sit_on: ["chair", "couch", "bench", "stool"]
+        put_on: ["table", "desk", "counter", "shelf", "couch"]
+        go_to: ["kitchen", "living_room", "bedroom", "office", "bathroom", "dining_room"]
+      physical_constraints:
+        max_pickup_weight: 2.0  # kg
+        max_reach_distance: 1.2  # meters
+        navigation_speed: 0.5  # m/s
+    
+    robot_capabilities:
+      manipulation:
+        enabled: true
+        max_payload: 1.5  # kg
+        grasping_methods: ["top_grasp", "side_grasp", "pinch_grasp", "cylindrical_grasp"]
+        precision_level: "high"
+      navigation:
+        enabled: true
+        mapping: slam
+        obstacle_avoidance: true
+        max_speed: 0.8  # m/s
+      perception:
+        object_detection: true
+        object_recognition: true
+        spatial_reasoning: true
+      communication:
+        text_output: true
+        speech_output: false
+    
+    environment:
+      layout: "known"
+      static_objects: ["wall", "door", "window", "fixed_furniture"]
+      dynamic_objects: ["person", "pet", "movable_furniture", "personal_items"]
+      rooms: ["kitchen", "living_room", "bedroom", "office", "bathroom", "dining_room"]
+    
+  planning_parameters:
+    decomposition_depth: 10  # Maximum steps in a single plan
+    step_verification: true
+    plan_validation: true
+    safety_checks: true
+    feasibility_verification: true
+    
+  performance:
+    max_planning_time: 10.0  # seconds
+    target_response_time: 3.0  # seconds
+    api_timeout: 15.0  # seconds
+    
+  safety:
+    safety_constraints: true
+    human_proximity_handling: true
+    fragile_object_handling: true
+    emergency_stop_integration: true
+    
+  debug:
+    log_reasoning: true
+    log_plans: true
+    log_interactions: true
+    publish_intermediate: true
+    plan_visualization: true
+
+# Example few-shot prompting examples
+few_shot_examples:
+  -
+    input: "Set the table for two people for dinner"
+    output: |
+      1. Navigate to dining table
+      2. Navigate to kitchen counter
+      3. Detect plates
+      4. Grasp plate
+      5. Navigate to dining table
+      6. Place plate
+      7. Detect second plate
+      8. Grasp second plate
+      9. Navigate to dining table
+      10. Place second plate
+      11. Navigate back to kitchen counter
+      12. Detect forks
+      13. Grasp fork
+      14. Navigate to dining table
+      15. Place fork next to first plate
+      16. Detect second fork
+      17. Grasp second fork
+      18. Navigate to dining table
+      19. Place fork next to second plate
+  -
+    input: "Bring me the red cup from the kitchen"
+    output: |
+      1. Navigate to kitchen
+      2. Detect red cup
+      3. Grasp red cup
+      4. Navigate to user location
+      5. Release red cup

@@ -1,0 +1,47 @@
+.glossaryLink {
+  position: relative;
+  display: inline-block;
+}
+
+.termLink {
+  color: #2c7ae0;
+  border-bottom: 1px dotted currentColor;
+  text-decoration: none;
+}
+
+.termLink:hover {
+  color: #1d56a8;
+  border-bottom-style: solid;
+}
+
+.tooltip {
+  visibility: hidden;
+  width: 300px;
+  background-color: #333;
+  color: #fff;
+  text-align: center;
+  border-radius: 6px;
+  padding: 8px;
+  position: absolute;
+  z-index: 1;
+  bottom: 125%;
+  left: 50%;
+  transform: translateX(-50%);
+  opacity: 0;
+  transition: opacity 0.3s;
+  font-size: 0.9rem;
+  line-height: 1.4;
+}
+
+.glossaryLink:hover .tooltip {
+  visibility: visible;
+  opacity: 1;
+}
+
+/* Adjust for mobile devices */
+@media (max-width: 768px) {
+  .tooltip {
+    width: 250px;
+    font-size: 0.8rem;
+  }
+}

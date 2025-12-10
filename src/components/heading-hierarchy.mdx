@@ -1,0 +1,121 @@
+---
+title: Standardized Heading Hierarchy
+---
+
+# Standardized Heading Hierarchy
+
+This document defines the standardized heading hierarchy for all chapters in the Physical AI & Humanoid Robotics textbook.
+
+## Heading Structure
+
+Every chapter should follow this consistent heading hierarchy:
+
+### H1 (Main Chapter Title)
+- Use only one H1 per chapter (the main title)
+- This is automatically set by the MDX frontmatter title
+
+### H2 (Required Sections)
+Each chapter must contain these H2 sections in the specified order:
+
+- `## Introduction`
+- `## Core Concepts`
+- `## Technical Deep Dive`
+- `## Hands-On Walkthrough`
+- `## Simulation vs. Real-World`
+- `## Summary`
+- `## Glossary/Key Terms`
+
+### H3 (Subsections)
+Use H3 for subsections within each required section:
+
+```mdx
+## Core Concepts
+
+### Key Definitions
+- Define important terms here
+
+### Architecture & Components
+- Describe system architecture
+```
+
+### H4 (Further Subdivision)
+Use H4 for more granular content when needed:
+
+```mdx
+## Core Concepts
+
+### Key Definitions
+
+#### Sub-definitions
+- More detailed definitions
+```
+
+## Implementation Guidelines
+
+1. **Consistency**: All chapters must follow the same H2 structure
+2. **Progression**: Maintain the order: Introduction → Core Concepts → Technical Deep Dive → Hands-On → Simulation vs. Real-World → Summary → Glossary
+3. **Accessibility**: Use appropriate heading levels to maintain document outline structure
+4. **Navigation**: Headings should enable effective navigation via Table of Contents
+5. **Compliance**: Headings must align with Physical AI constitution requirements
+
+## Example Structure
+
+```mdx
+---
+title: Example Chapter on Physical AI
+description: A comprehensive chapter on Physical AI principles
+---
+
+# Example Chapter on Physical AI
+
+## Introduction
+- Chapter overview and learning objectives
+- Connection to broader Physical AI theme
+
+## Core Concepts
+- Fundamental principles of Physical AI
+
+### Key Definitions
+- Define important terms
+
+### Architecture & Components
+- System architecture discussion
+
+## Technical Deep Dive
+- Detailed technical information
+
+### Implementation Details
+- Specific implementation information
+
+## Hands-On Walkthrough
+- Practical exercises and implementation
+
+### Exercise 1
+- First practical exercise
+
+## Simulation vs. Real-World
+- Comparison and transition discussion
+
+### Simulation Considerations
+- Points specific to simulation
+
+### Real-World Considerations
+- Points specific to physical implementation
+
+## Summary
+- Key takeaways and summary
+
+## Glossary/Key Terms
+- Definitions of important terms
+```
+
+## Physical AI Compliance
+
+All headings and content must align with Physical AI & Humanoid Robotics constitution requirements:
+
+- Embodied Intelligence First
+- Simulation-to-Reality Progressive Learning
+- Multi-Platform Technical Standards (ROS 2, Gazebo, Isaac Sim, etc.)
+- Academic Rigor with Practical Application
+- Progressive Learning Structure
+- Inter-Module Coherence (ROS → Gazebo → Isaac → VLA stack)

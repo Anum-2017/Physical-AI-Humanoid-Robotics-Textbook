@@ -1,0 +1,163 @@
+---
+title: Consistent Content Formatting
+---
+
+# Consistent Content Formatting
+
+This document defines the consistent content formatting standards for all chapters in the Physical AI & Humanoid Robotics textbook.
+
+## Text Formatting Standards
+
+### Paragraphs
+- Use standard paragraph text without extra line breaks between paragraphs
+- Keep paragraphs focused on a single idea or concept
+- Use 1 empty line between paragraphs for clear separation
+
+### Emphasis
+- Use **bold** for important terms and key concepts
+- Use *italics* for definitions and clarifications
+- Avoid underlines (they look like links)
+
+### Lists
+Use ordered lists for sequential steps:
+
+1. First step
+2. Second step
+3. Third step
+
+Use unordered lists for non-sequential items:
+
+- Item one
+- Item two
+- Item three
+
+Use nested lists when needed:
+
+- Main item
+  - Sub-item
+    - Sub-sub-item
+  - Another sub-item
+- Another main item
+
+### Code Blocks
+Use proper language annotations for syntax highlighting:
+
+```python title="example_robot_controller.py"
+# Example of robot controller
+def move_robot():
+    # Implementation here
+    pass
+```
+
+```bash title="installation.sh"
+# Install ROS 2
+sudo apt update
+sudo apt install ros-humble-desktop
+```
+
+### Mathematical Expressions
+Use LaTeX notation for complex math:
+
+Inline math: $F = ma$
+
+Block math:
+$$
+\tau = I\alpha
+$$
+
+## Content Structure
+
+### Progressive Learning Format
+Each section should follow the progressive learning format:
+
+1. **Concept Introduction**: What is this concept?
+2. **Physical AI Connection**: How does this relate to Physical AI principles?
+3. **Technical Explanation**: How does it work?
+4. **Implementation Example**: Show with code or diagrams
+5. **Simulation-to-Reality Consideration**: How does this work in simulation vs. reality?
+
+### Code Example Format
+Consistently format code examples with:
+
+- Descriptive file titles
+- Comments explaining the Physical AI principles being demonstrated
+- References to ROS 2, Gazebo, Isaac Sim, or VLA where applicable
+- Error handling examples
+
+## Visual Elements
+
+### Images and Diagrams
+Include images with descriptive alt text:
+
+![Robot kinematics diagram showing joint angles](/img/kinematics-diagram.png)
+
+For complex diagrams, provide both visual and textual explanations.
+
+### Tables
+Format tables consistently:
+
+| Parameter | Value | Description |
+|-----------|-------|-------------|
+| Mass | 10 kg | Robot mass |
+| Height | 1.5 m | Robot height |
+
+### Equations
+Present equations with:
+- Clear variable definitions
+- Units where applicable
+- Context for how the equation fits into Physical AI principles
+
+## Technology Stack References
+
+### ROS 2 Integration
+When discussing ROS 2 concepts, consistently reference:
+
+- ROS 2 distributions (e.g., Humble Hawksbill)
+- Standard interfaces and message types
+- Communication patterns (topics, services, actions)
+
+### Simulation Frameworks
+For simulation content, consistently reference:
+
+- Gazebo simulation environment
+- URDF/SDF model descriptions
+- Sensor configurations and limitations
+
+### Hardware Abstraction
+When discussing physical hardware:
+
+- Use consistent terminology for joints, links, and actuators
+- Reference standard robot descriptions (URDF)
+- Connect simulation concepts to real hardware limitations
+
+## Accessibility Standards
+
+1. Provide alternative text for all images
+2. Use semantic headings (H1 through H6) in proper hierarchy
+3. Ensure sufficient color contrast
+4. Write alt text that describes the image's content and function
+5. Use relative units (em, rem) rather than absolute units (px) where possible
+
+## Physical AI Constitution Compliance
+
+All content formatting must align with the Physical AI & Humanoid Robotics constitution:
+
+- **Embodied Intelligence First**: Always connect abstract concepts to physical implementation
+- **Simulation-to-Reality Progressive Learning**: Structure content with clear progression from simulation to real-world application
+- **Multi-Platform Technical Standards**: Consistently reference ROS 2, Gazebo, Isaac Sim, Nav2, and VLA
+- **Academic Rigor with Practical Application**: Balance theoretical concepts with hands-on examples
+- **Progressive Learning Structure**: Follow the Intro → Core → Deep Dive → Hands-On → Real-World → Summary → Key Terms structure
+- **Inter-Module Coherence**: Maintain consistent terminology and concepts across all modules
+
+## Consistency Checklist
+
+Before finalizing content, ensure it meets these formatting standards:
+
+- [ ] Proper heading hierarchy (H1 through H6)
+- [ ] Consistent use of callout components (Note, Tip, Warning)
+- [ ] Code examples with proper syntax highlighting and file titles
+- [ ] Progressive learning structure followed
+- [ ] Physical AI principles clearly connected
+- [ ] Technology stack (ROS → Gazebo → Isaac → VLA) consistently referenced
+- [ ] Glossary terms linked using GlossaryLink component
+- [ ] Accessibility standards met

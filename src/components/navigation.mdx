@@ -1,0 +1,74 @@
+import Link from '@docusaurus/Link';
+import useBaseUrl from '@docusaurus/useBaseUrl';
+import ThemedImage from '@theme/ThemedImage';
+
+# Chapter Navigation
+
+This component provides consistent navigation for all chapters in the Physical AI & Humanoid Robotics textbook.
+
+## Previous/Next Chapter Navigation
+
+<nav class="chapter-nav">
+  <div class="nav-item previous">
+    <Link to={useBaseUrl('/docs/chapter-1')} className="nav-link">
+      ← Previous Chapter
+    </Link>
+  </div>
+  <div class="nav-item next">
+    <Link to={useBaseUrl('/docs/chapter-3')} className="nav-link">
+      Next Chapter →
+    </Link>
+  </div>
+</nav>
+
+## Section Navigation
+
+<details class="section-nav">
+  <summary>Jump to Section</summary>
+  <ul>
+    <li><a href="#introduction">Introduction</a></li>
+    <li><a href="#core-concepts">Core Concepts</a></li>
+    <li><a href="#technical-deep-dive">Technical Deep Dive</a></li>
+    <li><a href="#hands-on">Hands-On Walkthrough</a></li>
+    <li><a href="#simulation-real-world">Simulation vs. Real-World</a></li>
+    <li><a href="#summary">Summary</a></li>
+    <li><a href="#glossary">Glossary/Key Terms</a></li>
+  </ul>
+</details>
+
+## Physical AI & Humanoid Robotics Links
+
+- [Module Introduction](/docs/intro)
+- [Learning Path Overview](/docs/path)
+- [ROS → Gazebo → Isaac → VLA Stack](/docs/stack)
+- [Embodied Intelligence Principles](/docs/embodied-intelligence)
+- [Simulation-to-Reality Learning](/docs/simulation-to-reality)
+
+## Navigation Styles
+
+This navigation component follows the Physical AI & Humanoid Robotics textbook standards:
+- Clear section headings
+- Consistent terminology
+- Links to related concepts
+- Progression from simulation to reality
+- Integration with ROS, Gazebo, Isaac, and VLA frameworks
+
+## Implementation Notes
+
+To use this navigation in your chapter:
+1. Add the component after the main heading
+2. Update the previous/next links to match your chapter sequence
+3. Ensure section IDs match the links in the jump menu
+4. Verify all links point to existing content
+
+```mdx
+---
+title: Your Chapter Title
+---
+
+# Your Chapter Title
+
+import Navigation from '@site/src/components/navigation.mdx';
+
+<Navigation />
+```

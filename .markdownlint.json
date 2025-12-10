@@ -1,0 +1,19 @@
+{
+  "default": true,
+  "line_length": {
+    "line_length": 120,
+    "code_blocks": false
+  },
+  "header-style": {
+    "style": "atx"
+  },
+  "no-multiple-blanks": {
+    "maximum": 2
+  },
+  "ul-style": {
+    "style": "dash"
+  },
+  "code-block-style": {
+    "style": "fenced"
+  }
+}

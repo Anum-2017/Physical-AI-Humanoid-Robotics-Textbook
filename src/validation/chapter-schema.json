@@ -1,0 +1,88 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "type": "object",
+  "title": "Chapter Template Schema for Physical AI & Humanoid Robotics",
+  "description": "Schema to validate chapter structure and content compliance with Physical AI constitution",
+  "required": [
+    "title",
+    "description",
+    "sections"
+  ],
+  "properties": {
+    "title": {
+      "type": "string",
+      "description": "Title of the chapter"
+    },
+    "description": {
+      "type": "string",
+      "description": "Description of the chapter"
+    },
+    "sections": {
+      "type": "array",
+      "description": "List of required sections for Physical AI & Humanoid Robotics textbook",
+      "items": {
+        "$ref": "#/definitions/section"
+      },
+      "minItems": 7,
+      "maxItems": 7
+    }
+  },
+  "definitions": {
+    "section": {
+      "type": "object",
+      "required": ["id", "title", "content"],
+      "properties": {
+        "id": {
+          "type": "string",
+          "enum": [
+            "introduction",
+            "core-concepts", 
+            "technical-deep-dive",
+            "hands-on",
+            "simulation-real-world",
+            "summary",
+            "glossary"
+          ]
+        },
+        "title": {
+          "type": "string",
+          "description": "Title of the section"
+        },
+        "content": {
+          "type": "string",
+          "description": "Content of the section"
+        },
+        "compliance": {
+          "type": "object",
+          "description": "Compliance with Physical AI constitution",
+          "properties": {
+            "embodied_intelligence": {
+              "type": "boolean",
+              "description": "Contains content about embodied intelligence"
+            },
+            "simulation_to_reality": {
+              "type": "boolean",
+              "description": "Contains simulation-to-reality learning content"
+            },
+            "robotics_standards": {
+              "type": "array",
+              "description": "List of robotics standards implemented",
+              "items": {
+                "type": "string",
+                "enum": [
+                  "ROS 2",
+                  "Gazebo",
+                  "URDF",
+                  "Isaac Sim",
+                  "Nav2",
+                  "VLA"
+                ]
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "additionalProperties": false
+}

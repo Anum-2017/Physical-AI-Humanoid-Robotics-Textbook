@@ -1,0 +1,61 @@
+---
+title: Chapter Validation Dashboard
+---
+
+# Chapter Validation Dashboard
+
+This dashboard provides an overview of validation results for all chapters in the Physical AI & Humanoid Robotics textbook.
+
+## Validation Summary
+
+| Chapter | Status | Structure | Constitution | MDX | Robotics | Schema | Coherence | Last Updated |
+|---------|--------|-----------|--------------|-----|----------|--------|-----------|--------------|
+| [Sample Chapter](/docs/sample-chapter) | ✅ PASS | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | 2025-12-08 |
+| [Chapter 2 - Core Concepts]() | ❌ FAIL | ✅ | ✅ | ✅ | ❌ | ✅ | ✅ | 2025-12-08 |
+
+## Validation Details
+
+### Sample Chapter
+- **Overall Status**: ✅ PASS
+- **Errors**: 0
+- **Last Validation**: December 8, 2025, 19:52:31 UTC
+- **Validation Report**: [View Report](./sample-chapter-validation-report.md)
+
+### Validation Legend
+
+- ✅ PASS: Component meets all requirements
+- ❌ FAIL: Component has validation errors
+- ⏳ PENDING: Component has not yet been validated
+
+## Validation Process
+
+Each chapter undergoes these validation checks:
+
+1. **Structure Compliance**: Validates required sections (Introduction, Core Concepts, etc.)
+2. **Constitution Compliance**: Ensures alignment with Physical AI principles
+3. **MDX Compliance**: Checks Docusaurus MDX syntax and formatting
+4. **Robotics Standards**: Verifies inclusion of required robotics frameworks
+5. **Schema Compliance**: Validates against chapter schema
+6. **Inter-Module Coherence**: Ensures consistency with other modules
+
+## Review Process
+
+1. Reviewers examine validation reports for each chapter
+2. Address all flagged issues
+3. Re-validate after making changes
+4. Confirm chapter readiness for publication
+
+## Automated Validation
+
+The validation process is automated using the ChapterValidator and ReportGenerator tools located in the `src/validation` directory. These tools can be run as part of a CI/CD pipeline to ensure all content meets Physical AI & Humanoid Robotics textbook standards.
+
+```js
+// Example of validation code
+const validator = require('./validator.js');
+const reportGen = require('./report-generator.js');
+
+const result = validator.generateReport(chapterContent);
+const report = reportGen.generateReport(result);
+```
+
+For more information on the validation process, see the [validation documentation](./readme.md).

@@ -1,0 +1,99 @@
+---
+title: Consistent Cross-Referencing
+---
+
+# Consistent Cross-Referencing
+
+This document defines the consistent approach to cross-referencing between modules in the Physical AI & Humanoid Robotics textbook.
+
+## Cross-Referencing Guidelines
+
+### Internal Module References
+
+Cross-reference to other modules using this format:
+
+```mdx
+For more information on [topic], see the [Module Name](/docs/module-path) module.
+
+Example:
+For more information on perception systems, see the [Sensors and Perception](/docs/sensors-perception) module.
+```
+
+### Figure and Table References
+
+When referencing figures or tables from other modules:
+
+```mdx
+As shown in [Figure X](/docs/other-module#figure-anchor) in the [Module Name](/docs/other-module) module, ...
+
+Example:
+As shown in [Figure 3](/docs/manipulation#grasp-types) in the [Manipulation](/docs/manipulation) module, ...
+```
+
+### Code Example References
+
+When referencing code examples from other modules:
+
+```mdx
+The implementation follows the approach described in the [Module Name](/docs/module-path) module's [Code Example](/docs/module-path#code-example-anchor) section.
+
+Example:
+The implementation follows the approach described in the [Locomotion](/docs/locomotion) module's [Walking Controller](/docs/locomotion#walking-controller) section.
+```
+
+## Cross-Module Consistency
+
+### ROS → Gazebo → Isaac → VLA Stack References
+
+Consistently reference the technology stack across modules:
+
+```mdx
+This module builds on the [ROS 2](/docs/ros2-basics) foundation established in the [Robot Operating System](/docs/ros2-basics) module and integrates with the [Gazebo simulation](/docs/gazebo) environment as described in the [Simulation](/docs/gazebo) module.
+
+It prepares for the [Isaac Sim integration](/docs/isaac-sim) covered in the [Advanced Simulation](/docs/isaac-sim) module and ultimately connects to the [VLA capabilities](/docs/vla-models) as detailed in the [Vision-Language-Action Models](/docs/vla-models) module.
+```
+
+### Physical AI Principles References
+
+Continuously reinforce Physical AI principles through cross-references:
+
+```mdx
+This concept directly connects to the **Embodied Intelligence** principle discussed in the [Physical AI Foundations](/docs/foundations) module.
+As detailed in the [Simulation-to-Reality](/docs/simulation-to-reality) module, implementing this approach requires careful consideration of the simulation-to-reality gap.
+```
+
+## Component for Cross-Module Linking
+
+For frequently referenced cross-module connections, use this component pattern:
+
+```mdx
+import LinkCard from '@site/src/components/LinkCard';
+
+<LinkCard 
+  title="Related Module: [Module Name]" 
+  description="Brief description of how this connects to the other module"
+  link="/docs/module-path"
+  linkText="Explore [Module Name] Module" 
+/>
+```
+
+## Best Practices
+
+1. **Contextual References**: Always provide context for why the cross-reference is relevant
+2. **Constitution Alignment**: Ensure cross-references support Physical AI & Humanoid Robotics constitution principles
+3. **Progressive Learning**: Structure cross-references to support learning progression
+4. **Technology Stack Consistency**: Maintain consistency in how the ROS → Gazebo → Isaac → VLA stack is referenced
+5. **Accessibility**: Ensure cross-references are accessible and add value to the learning experience
+6. **Up-to-Date Links**: Verify that cross-reference links remain valid as the textbook evolves
+
+## Example Implementation
+
+```mdx
+## Integration with Other Modules
+
+The controller architecture described in this module builds upon the perception foundation established in the [Sensors and Perception](/docs/sensors-perception) module. As detailed in that module, effective control requires reliable sensory input.
+
+For implementation details on the simulation environment used for testing these controllers, refer to the [Gazebo Simulation](/docs/gazebo) module. The simulation-to-reality transfer techniques discussed in the [Simulation-to-Reality](/docs/simulation-to-reality) module provide important context for understanding the limitations of simulated testing.
+
+This module's approach to control integrates with the ROS 2 framework described in the [ROS 2 Basics](/docs/ros2-basics) module and connects to the [Isaac Sim](/docs/isaac-sim) environment covered in the advanced simulation module.
+```

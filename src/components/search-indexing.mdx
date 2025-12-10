@@ -1,0 +1,173 @@
+---
+title: Search and Indexing Capabilities
+---
+
+# Search and Indexing Capabilities
+
+This document outlines the consistent search and indexing capabilities implemented in the Physical AI & Humanoid Robotics textbook to ensure content is discoverable and well-organized.
+
+## Search Implementation
+
+The Physical AI & Humanoid Robotics textbook uses Docusaurus's built-in search functionality powered by Algolia DocSearch, providing:
+
+- **Full-text search**: Search across all chapters and sections
+- **Faceted search**: Filter results by module, concept, or technology
+- **Intelligent suggestions**: Auto-complete and typo tolerance
+- **Relevance ranking**: Results ranked by relevance to query
+
+## Content Indexing Standards
+
+### Frontmatter Metadata
+
+Each chapter includes comprehensive metadata for proper indexing:
+
+```mdx
+---
+title: Chapter Title
+description: Comprehensive description for search engines and social sharing
+tags: [physical-ai, robotics, ros2, simulation]
+keywords: [physical ai, humanoid robotics, robot operating system, simulation to reality]
+---
+
+# Chapter Title
+```
+
+### Content Structure for Indexing
+
+Proper heading hierarchy ensures good search indexing:
+
+```mdx
+# Main Title (H1)
+
+## Section Header (H2) 
+Contains important keywords related to Physical AI principles
+
+### Subsection Header (H3)
+More specific keywords and concepts
+
+Regular content with relevant terminology and concepts.
+```
+
+### Keyword Consistency
+
+All content consistently uses Physical AI & Humanoid Robotics terminology:
+
+- **Core Terms**: Physical AI, Embodied Intelligence, Simulation-to-Reality
+- **Technology Stack**: ROS 2, Gazebo, Isaac Sim, VLA, Nav2
+- **Concepts**: Locomotion, Manipulation, Perception, Control
+- **Applications**: Humanoid Robotics, Mobile Robots, Industrial Automation
+
+## Search Optimization
+
+### Content Organization
+
+Chapters are organized to support effective search:
+
+1. **Landing pages** with comprehensive overviews
+2. **Detailed sections** with specific implementation details
+3. **Cross-references** linking related concepts
+4. **Consistent terminology** throughout all modules
+
+### Semantic Markup
+
+Content uses semantic markup to improve indexing:
+
+- Proper heading hierarchy (H1 → H6)
+- Descriptive alt text for images
+- Structured lists for key concepts
+- Code blocks with language annotations
+- Links with descriptive text
+
+## Indexing for Physical AI Principles
+
+### Embodied Intelligence Indexing
+
+Content about embodied intelligence is properly indexed with:
+
+- Consistent terminology across modules
+- Cross-references to related concepts
+- Examples showing physical implementation
+- Context within simulation-to-reality frameworks
+
+### Simulation-to-Reality Indexing
+
+Search terms related to simulation-to-reality are handled with:
+
+- Consistent terminology: "simulation-to-reality", "sim-to-real", "reality gap"
+- Links between simulation concepts and real-world implementation
+- Clear differentiation of simulation vs. real-world content
+- Progressive learning pathways clearly marked
+
+### Technology Stack Indexing
+
+The ROS → Gazebo → Isaac → VLA stack is indexed with:
+
+- Individual technology terms (ROS 2, Gazebo, Isaac Sim, VLA)
+- Combined stack terminology (ROS, Gazebo, Isaac, VLA stack)
+- Interconnection concepts (integration, compatibility, workflow)
+- Implementation examples showing technology relationships
+
+## Advanced Search Features
+
+### Filter Capabilities
+
+Search results can be filtered by:
+
+- **Module**: Find content in specific textbook modules
+- **Technology**: Focus on specific technologies (ROS 2, Gazebo, etc.)
+- **Concept**: Search by Physical AI principles
+- **Difficulty**: Beginner, Intermediate, Advanced content
+- **Application**: Different robotics applications
+
+### Search Suggestions
+
+The search interface provides intelligent suggestions:
+
+- Common Physical AI terminology
+- Related concepts within the textbook
+- Technology stack connections (e.g., searching "ROS" suggests "Gazebo", "Isaac Sim")
+- Cross-module concept connections
+
+## Implementation Guidelines
+
+### For Authors
+
+When creating new content, ensure proper search indexing:
+
+1. Use consistent Physical AI terminology
+2. Include relevant tags and keywords in frontmatter
+3. Structure content with semantic headings
+4. Link to related content in other modules
+5. Use descriptive text for all links and images
+6. Include implementation examples with code
+
+### For Maintainers
+
+Regular search optimization tasks:
+
+- Monitor search analytics to identify common queries
+- Update content based on search usage patterns
+- Add redirects for common search terms
+- Review and update meta descriptions regularly
+- Ensure all content is properly indexed
+
+## Search and Physical AI Constitution
+
+Search capabilities support all Physical AI & Humanoid Robotics constitution requirements:
+
+- **Embodied Intelligence**: Search terms related to embodied concepts are properly indexed
+- **Simulation-to-Reality**: Progressive learning pathways are searchable and connected
+- **Multi-Platform Standards**: Technology stack relationships are maintained in search
+- **Academic Rigor**: Theoretical and practical content are both discoverable
+- **Progressive Learning**: Content is organized for effective discovery and learning
+- **Inter-Module Coherence**: Cross-module connections are searchable and accessible
+
+## Testing Search Functionality
+
+Regular testing ensures search effectiveness:
+
+1. **Keyword Testing**: Verify common terms return relevant results
+2. **Cross-Module Search**: Test queries that span multiple modules
+3. **Technology Stack Queries**: Verify technology relationships are discoverable
+4. **Concept Discovery**: Ensure Physical AI principles are easily found
+5. **User Journey Testing**: Test common search patterns used by students

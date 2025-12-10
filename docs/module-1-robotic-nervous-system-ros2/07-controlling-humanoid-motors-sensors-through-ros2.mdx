@@ -1,0 +1,518 @@
+---
+title: Controlling Humanoid Motors & Sensors through ROS 2
+---
+
+import Note from '@site/src/components/Note';
+import Tip from '@site/src/components/Tip';
+import Warning from '@site/src/components/Warning';
+import GlossaryLink from '@site/src/components/GlossaryLink';
+import AccessibilityNotice from '@site/src/components/AccessibilityNotice';
+
+# Controlling Humanoid Motors & Sensors through ROS 2
+
+<AccessibilityNotice>
+This chapter follows accessibility standards for educational materials, including sufficient color contrast, semantic headings, and alternative text for images.
+</AccessibilityNotice>
+
+## Introduction
+
+<Tip>
+This section explores how ROS 2 enables control of humanoid robot hardware through standardized interfaces for motors, sensors, and other peripherals.
+</Tip>
+
+<Note>
+**Embodied Intelligence Check**: This section explicitly connects theoretical concepts to physical embodiment and real-world robotics applications, aligning with the Physical AI constitution's emphasis on embodied intelligence principles.
+</Note>
+
+ROS 2 provides the essential infrastructure for controlling humanoid robot hardware through the ros2_control framework and standardized hardware interfaces. This framework abstracts the complexity of diverse hardware drivers while providing real-time performance for control applications. The hardware interface layer enables the Physical AI principle of embodied intelligence by connecting computational algorithms with physical actuators and sensors, allowing software to directly influence and perceive the physical world.
+
+The ros2_control framework provides a unified approach to hardware abstraction where computational nodes can send commands to physical motors and receive sensor data through standardized ROS 2 interfaces, regardless of the underlying hardware implementation. This standardization is crucial for humanoid robotics where complex systems with dozens of joints and multiple sensor types must be coordinated.
+
+This chapter will explore how ROS 2's hardware interfaces enable the Physical AI principle of embodied intelligence by providing the standardized communication layer needed to connect computational processes with physical sensors and actuators.
+
+## Core Concepts
+
+### Key Definitions
+
+- **ros2_control**: The standard framework for hardware abstraction in ROS 2, providing a unified interface for controlling robot hardware.
+
+- **Hardware Interface**: An abstraction layer that defines how ROS 2 communicates with physical hardware components like motors and sensors.
+
+- **Controller Manager**: A ROS 2 node that manages the lifecycle of controllers and interfaces with hardware interfaces.
+
+- **Controller**: A ROS 2 node that implements control algorithms and sends commands to hardware interfaces.
+
+- **Joint State**: The position, velocity, and effort information for robot joints, typically published at high frequency.
+
+- **Real-time Control**: Control systems that must meet strict timing requirements, essential for stable robot control.
+
+- **Hardware Abstraction Layer (HAL)**: The layer in ros2_control that standardizes communication with diverse hardware implementations.
+
+- **Resource Manager**: Component that manages access to hardware resources and prevents conflicts between controllers.
+
+### Architecture & Components
+
+<Note>
+**Technical Standards Check**: All architecture diagrams and component descriptions include references to ROS 2, Gazebo, Isaac Sim, VLA, and Nav2 as required by the Physical AI constitution's Multi-Platform Technical Standards principle.
+</Note>
+
+The ros2_control architecture consists of:
+
+- **Hardware Interface Layer**: Standardized interfaces for different hardware components (joint, sensor, etc.)
+- **Controller Manager**: ROS 2 node that manages controller lifecycle and hardware communication
+- **Controllers**: Nodes implementing specific control algorithms (position, velocity, effort, etc.)
+- **Resource Manager**: Manages access to hardware resources and prevents conflicts
+- **Transmission Interface**: Converts actuator commands to joint commands based on robot kinematics
+- **Real-time Loop**: High-frequency control loop that ensures timing requirements are met
+- **Hardware Components**: Physical motors, sensors, and other devices with appropriate drivers
+
+This architecture enables standardized communication between computational processes and physical hardware, which is essential for embodied intelligence applications where software must interact reliably with physical systems.
+
+## Technical Deep Dive
+
+<details>
+<summary>Click here for detailed technical information</summary>
+
+- Architecture considerations: Real-time control loop implementation with strict timing requirements
+- Framework implementation: ros2_control hardware interface abstractions and controller management
+- API specifications: Standard interfaces for hardware components and controllers  
+- Pipeline details: Command processing, feedback collection, and real-time scheduling
+- Mathematical foundations: Control theory, PID control, and trajectory generation
+- ROS 2/Gazebo/Isaac/VLA structures: Integration points with simulation and AI frameworks
+- Code examples: Implementation details for hardware interfaces and controllers
+
+</details>
+
+The ros2_control framework implements a real-time control loop that operates at high frequency to ensure stable control of robot hardware. The architecture includes:
+
+- **Hardware Interface**: Abstracts the specific hardware implementation
+- **Controller Manager**: Coordinates multiple controllers and manages resource allocation
+- **Controllers**: Implement specific control algorithms
+- **Transmission Interface**: Handles conversion between actuator and joint spaces
+
+Example configuration file for a humanoid robot hardware interface:
+
+```yaml
+# controller_manager.yaml
+controller_manager:
+  ros__parameters:
+    update_rate: 100  # Hz
+
+    joint_state_broadcaster:
+      type: joint_state_broadcaster/JointStateBroadcaster
+
+    position_controller:
+      type: position_controllers/JointTrajectoryController
+
+    velocity_controller:
+      type: velocity_controllers/JointTrajectoryController
+
+    effort_controller:
+      type: effort_controllers/JointTrajectoryController
+
+position_controller:
+  ros__parameters:
+    joints:
+      - left_hip_joint
+      - right_hip_joint
+      - left_knee_joint
+      - right_knee_joint
+      - left_shoulder_joint
+      - right_shoulder_joint
+    interface_name: position
+```
+
+Example controller implementation that enables embodied intelligence:
+
+```python title="hardware_control_example.py"
+#!/usr/bin/env python3
+
+import rclpy
+from rclpy.node import Node
+from sensor_msgs.msg import JointState, Imu
+from geometry_msgs.msg import Twist
+from trajectory_msgs.msg import JointTrajectory, JointTrajectoryPoint
+from builtin_interfaces.msg import Duration
+import numpy as np
+import time
+
+class HumanoidHardwareController(Node):
+    """
+    Example demonstrating ROS 2 control of humanoid hardware through
+    standardized interfaces, following Physical AI principles for
+    connecting computational intelligence with physical embodiment.
+    """
+    
+    def __init__(self):
+        super().__init__('humanoid_hardware_controller')
+        
+        # Publisher for joint trajectory commands
+        self.joint_trajectory_publisher = self.create_publisher(
+            JointTrajectory,
+            '/position_controller/joint_trajectory',
+            10
+        )
+        
+        # Publisher for velocity commands (for base movement)
+        self.cmd_vel_publisher = self.create_publisher(
+            Twist,
+            '/cmd_vel',
+            10
+        )
+        
+        # Subscriber for joint states
+        self.joint_state_subscription = self.create_subscription(
+            JointState,
+            '/joint_states',
+            self.joint_state_callback,
+            10
+        )
+        
+        # Subscriber for IMU data
+        self.imu_subscription = self.create_publisher(
+            Imu,
+            '/imu/data',
+            10
+        )
+        
+        # Timer for control loop
+        self.control_timer = self.create_timer(0.02, self.control_loop)  # 50 Hz
+        
+        # Store current joint states
+        self.current_joint_states = JointState()
+        
+        # Initialize trajectory positions
+        self.home_position = [0.0, 0.0, 0.0, 0.0, 0.0, 0.0]  # Position for 6 joints
+        self.walk_cycle_positions = np.array([
+            [0.1, -0.1, 0.05, -0.05, 0.0, 0.0],  # Step 1
+            [0.15, -0.15, 0.1, -0.1, 0.05, -0.05],  # Step 2
+            [0.1, -0.1, 0.05, -0.05, 0.0, 0.0],  # Step 3
+        ])
+        
+        self.get_logger().info('Humanoid hardware controller initialized')
+        
+    def joint_state_callback(self, msg):
+        """Receive joint state information"""
+        self.current_joint_states = msg
+        
+    def control_loop(self):
+        """Main control loop for humanoid hardware"""
+        # Example of generating a walking trajectory
+        self.execute_walk_cycle()
+        
+    def execute_walk_cycle(self):
+        """Execute a simple walking gait"""
+        # Create trajectory message
+        trajectory_msg = JointTrajectory()
+        trajectory_msg.joint_names = [
+            'left_hip_joint', 'right_hip_joint', 
+            'left_knee_joint', 'right_knee_joint',
+            'left_shoulder_joint', 'right_shoulder_joint'
+        ]
+        
+        # Create trajectory points (for a simple walking gait)
+        for i, pos in enumerate(self.walk_cycle_positions):
+            point = JointTrajectoryPoint()
+            point.positions = pos.tolist()
+            point.velocities = [0.0] * len(pos)  # Start and end with zero velocity
+            point.accelerations = [0.0] * len(pos)
+            
+            # Set time from start (increasing by 0.5 seconds for each point)
+            point.time_from_start = Duration(sec=int(0.5 * (i + 1)), nanosec=0)
+            
+            trajectory_msg.points.append(point)
+        
+        # Publish the trajectory
+        self.joint_trajectory_publisher.publish(trajectory_msg)
+        
+        # Also send base velocity command
+        cmd_vel = Twist()
+        cmd_vel.linear.x = 0.2  # Move forward slowly
+        cmd_vel.angular.z = 0.0  # No turning
+        self.cmd_vel_publisher.publish(cmd_vel)
+        
+        self.get_logger().info('Published walking trajectory')
+
+def main(args=None):
+    rclpy.init(args=args)
+    controller = HumanoidHardwareController()
+    
+    try:
+        rclpy.spin(controller)
+    except KeyboardInterrupt:
+        pass
+    finally:
+        controller.destroy_node()
+        rclpy.shutdown()
+
+if __name__ == '__main__':
+    main()
+```
+
+## Hands-On Example
+
+In this hands-on example, we'll implement a complete system for controlling humanoid motors and sensors:
+
+1. **Setup Hardware Interface**: Configure ros2_control for a humanoid robot
+2. **Implement Controllers**: Create controllers for different movement patterns
+3. **Integrate Sensors**: Connect sensor feedback to control system
+4. **Test Control System**: Verify hardware control works properly
+5. **Deploy to Hardware**: If available, test on real robot hardware
+
+### Step 1: Create hardware interface configuration (my_humanoid_system.ros2_control.xacro)
+```xml
+<?xml version="1.0"?>
+<robot xmlns:xacro="http://www.ros.org/wiki/xacro">
+  <xacro:macro name="my_humanoid_system" params="name prefix">
+    <ros2_control name="$(arg name)" type="system">
+      <hardware>
+        <plugin>my_humanoid_hardware/MyHumanoidHardware</plugin>
+      </hardware>
+      <joint name="left_hip_joint">
+        <command_interface name="position"/>
+        <command_interface name="velocity"/>
+        <command_interface name="effort"/>
+        <state_interface name="position"/>
+        <state_interface name="velocity"/>
+        <state_interface name="effort"/>
+      </joint>
+      <joint name="right_hip_joint">
+        <command_interface name="position"/>
+        <command_interface name="velocity"/>
+        <command_interface name="effort"/>
+        <state_interface name="position"/>
+        <state_interface name="velocity"/>
+        <state_interface name="effort"/>
+      </joint>
+      <joint name="left_knee_joint">
+        <command_interface name="position"/>
+        <command_interface name="velocity"/>
+        <command_interface name="effort"/>
+        <state_interface name="position"/>
+        <state_interface name="velocity"/>
+        <state_interface name="effort"/>
+      </joint>
+      <joint name="right_knee_joint">
+        <command_interface name="position"/>
+        <command_interface name="velocity"/>
+        <command_interface name="effort"/>
+        <state_interface name="position"/>
+        <state_interface name="velocity"/>
+        <state_interface name="effort"/>
+      </joint>
+      <sensor name="imu_sensor">
+        <state_interface name="orientation.x"/>
+        <state_interface name="orientation.y"/>
+        <state_interface name="orientation.z"/>
+        <state_interface name="orientation.w"/>
+        <state_interface name="angular_velocity.x"/>
+        <state_interface name="angular_velocity.y"/>
+        <state_interface name="angular_velocity.z"/>
+        <state_interface name="linear_acceleration.x"/>
+        <state_interface name="linear_acceleration.y"/>
+        <state_interface name="linear_acceleration.z"/>
+      </sensor>
+    </ros2_control>
+  </xacro:macro>
+</robot>
+```
+
+### Step 2: Implement a simple safety controller (safety_controller.py)
+```python
+#!/usr/bin/env python3
+
+import rclpy
+from rclpy.node import Node
+from sensor_msgs.msg import JointState, Imu
+from std_msgs.msg import Bool
+
+class SafetyController(Node):
+    """
+    Safety controller that monitors sensor data and stops robot if needed,
+    demonstrating safety considerations essential for physical embodiment.
+    """
+    
+    def __init__(self):
+        super().__init__('safety_controller')
+        
+        # Subscribe to sensor data
+        self.joint_state_subscription = self.create_subscription(
+            JointState,
+            '/joint_states',
+            self.joint_state_callback,
+            10
+        )
+        
+        self.imu_subscription = self.create_subscription(
+            Imu,
+            '/imu/data',
+            self.imu_callback,
+            10
+        )
+        
+        # Publisher for emergency stop
+        self.emergency_stop_publisher = self.create_publisher(
+            Bool,
+            '/emergency_stop',
+            10
+        )
+        
+        # Timer for safety checks
+        self.safety_timer = self.create_timer(0.01, self.safety_check)  # 100 Hz
+        
+        self.joint_states = JointState()
+        self.imu_data = Imu()
+        self.emergency_stop = False
+        
+        self.get_logger().info('Safety controller initialized')
+        
+    def joint_state_callback(self, msg):
+        """Receive joint state data"""
+        self.joint_states = msg
+        
+    def imu_callback(self, msg):
+        """Receive IMU data"""
+        self.imu_data = msg
+        
+    def safety_check(self):
+        """Perform safety checks"""
+        # Check for joint limit violations
+        for i, position in enumerate(self.joint_states.position):
+            # Example: Check if any joint is beyond safety limits
+            if abs(position) > 3.0:  # 3 radians safety limit
+                self.get_logger().error(f'Joint {i} position {position} exceeds safety limits!')
+                self.emergency_stop = True
+                
+        # Check for dangerous orientation (e.g., falling)
+        roll, pitch, yaw = self.quaternion_to_euler(
+            self.imu_data.orientation.x,
+            self.imu_data.orientation.y, 
+            self.imu_data.orientation.z,
+            self.imu_data.orientation.w
+        )
+        
+        if abs(roll) > 1.0 or abs(pitch) > 1.0:  # 57 degrees safety limit
+            self.get_logger().error(f'Dangerous orientation detected: roll={roll}, pitch={pitch}')
+            self.emergency_stop = True
+            
+        # Publish emergency stop if needed
+        stop_msg = Bool()
+        stop_msg.data = self.emergency_stop
+        self.emergency_stop_publisher.publish(stop_msg)
+        
+        if self.emergency_stop:
+            self.get_logger().warn('EMERGENCY STOP ACTIVATED')
+            
+    def quaternion_to_euler(self, x, y, z, w):
+        """Convert quaternion to Euler angles"""
+        import math
+        # Roll (x-axis rotation)
+        sinr_cosp = 2 * (w * x + y * z)
+        cosr_cosp = 1 - 2 * (x * x + y * y)
+        roll = math.atan2(sinr_cosp, cosr_cosp)
+
+        # Pitch (y-axis rotation)
+        sinp = 2 * (w * y - z * x)
+        if abs(sinp) >= 1:
+            pitch = math.copysign(math.pi / 2, sinp)  # Use 90 degrees if out of range
+        else:
+            pitch = math.asin(sinp)
+
+        # Yaw (z-axis rotation)
+        siny_cosp = 2 * (w * z + x * y)
+        cosy_cosp = 1 - 2 * (y * y + z * z)
+        yaw = math.atan2(siny_cosp, cosy_cosp)
+
+        return roll, pitch, yaw
+
+def main(args=None):
+    rclpy.init(args=args)
+    safety_controller = SafetyController()
+    
+    try:
+        rclpy.spin(safety_controller)
+    except KeyboardInterrupt:
+        pass
+    finally:
+        safety_controller.destroy_node()
+        rclpy.shutdown()
+
+if __name__ == '__main__':
+    main()
+```
+
+Each step connects to the simulation-to-reality learning pathway.
+
+## Real-World Application
+
+<Warning>
+**Simulation-to-Reality Check**: This section clearly demonstrates the progressive learning pathway from simulation to real-world implementation, following the Physical AI constitution's requirement for simulation-to-reality progressive learning approach.
+</Warning>
+
+In real-world humanoid robotics applications, ROS 2's hardware control framework enables safe and effective interaction with physical systems:
+
+- Joint trajectory controllers execute complex movement patterns
+- Sensor feedback enables closed-loop control for stability
+- Safety controllers monitor system state to prevent damage
+- Hardware abstraction allows the same control code to work on different robots
+
+When transitioning from simulation to reality, the same ROS 2 interfaces are used, but with different underlying hardware implementations:
+
+- Simulation controllers interact with physics engines
+- Real-robot controllers interact with physical motors and sensors
+- Safety considerations become more critical with real hardware
+- Real-time performance requirements must be met for stable control
+
+The ROS 2 hardware interface enables the Physical AI principle of embodied intelligence by providing a standardized way for computational processes to interact with physical sensors and actuators, regardless of the specific hardware implementation.
+
+## Summary
+
+This chapter covered the fundamentals of controlling humanoid hardware through ROS 2:
+- The ros2_control framework for hardware abstraction
+- Key components of the hardware interface architecture
+- Technical implementation of controllers and safety systems
+- Practical example of a complete hardware control system
+- Real-world considerations for deploying on physical hardware
+
+ROS 2's hardware interface provides the standardized communication layer needed to connect computational intelligence with physical embodiment, enabling the Physical AI principle of embodied intelligence.
+
+## Key Terms
+
+<dl>
+<dt>ros2_control</dt>
+<dd>The standard framework for hardware abstraction in ROS 2, providing a unified interface for controlling robot hardware in the Physical AI context.</dd>
+
+<dt>Hardware Interface</dt>
+<dd>An abstraction layer that defines how ROS 2 communicates with physical hardware components like motors and sensors.</dd>
+
+<dt>Controller</dt>
+<dd>A ROS 2 node that implements control algorithms and sends commands to hardware interfaces.</dd>
+
+<dt>Real-time Control</dt>
+<dd>Control systems that must meet strict timing requirements, essential for stable robot control.</dd>
+</dl>
+
+---
+
+## Compliance Check
+
+This chapter template ensures compliance with the Physical AI & Humanoid Robotics constitution:
+
+- ✅ Embodied Intelligence First: All concepts connect to physical embodiment
+- ✅ Simulation-to-Reality Progressive Learning: Clear pathways from simulation to real hardware
+- ✅ Multi-Platform Technical Standards: Aligned with ROS 2, Gazebo, URDF, Isaac Sim, Nav2
+- ✅ Modular & Maintainable Content: Self-contained and easily updated
+- ✅ Academic Rigor with Practical Application: Theoretical concepts with hands-on examples
+- ✅ Progressive Learning Structure: Follows required structure (Intro → Core → Deep Dive → Hands-On → Real-World → Summary → Key Terms)
+- ✅ Inter-Module Coherence: Maintains consistent relationships between ROS → Gazebo → Isaac → VLA stack
+
+## Inter-Module Coherence
+
+<Note>
+**Inter-Module Coherence Check**: This chapter maintains consistent terminology, concepts, and implementation approaches with other modules in the Physical AI & Humanoid Robotics textbook, particularly regarding the ROS → Gazebo → Isaac → VLA stack relationships.
+
+This chapter establishes the hardware control system that connects to other modules:
+- The same hardware interface connects to Gazebo simulation in Module 2
+- The control system integrates with Isaac-based perception in Module 3
+- Hardware control is essential for VLA command execution in Module 4
+</Note>

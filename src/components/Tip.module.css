@@ -1,0 +1,11 @@
+.tip {
+  border-left: 6px solid #34a853;
+  /* background-color: #e6f4ea;   */
+  padding: 16px;
+  margin: 16px 0;
+  border-radius: 0 4px 4px 0;
+}
+
+.tipContent {
+  margin: 0;
+}

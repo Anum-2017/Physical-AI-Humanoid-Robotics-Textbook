@@ -1,0 +1,201 @@
+---
+title: Accessibility Features
+---
+
+# Accessibility Features
+
+This document outlines the accessibility features implemented in the Physical AI & Humanoid Robotics textbook to ensure educational content is accessible to all learners.
+
+## Accessibility Standards
+
+The Physical AI & Humanoid Robotics textbook follows these accessibility standards:
+
+- **WCAG 2.1 AA Compliance**: All content meets Web Content Accessibility Guidelines 2.1 Level AA standards
+- **Section 508 Compliance**: Content meets US federal accessibility requirements
+- **Educational Content Standards**: Special attention to accessibility needs of learners
+
+## Implemented Features
+
+### Semantic Structure
+
+The textbook uses proper semantic HTML structure:
+
+```mdx
+# Main Chapter Title (H1)
+
+## Section Title (H2)
+
+### Subsection Title (H3)
+
+#### Detailed Topic (H4)
+
+Regular paragraph text with clear structure.
+
+- List item with semantic meaning
+- Another list item
+
+1. Ordered list item
+2. Another ordered item
+```
+
+### Color and Contrast
+
+All content maintains sufficient color contrast (>4.5:1 for normal text, >3:1 for large text):
+
+- Primary text: #222222 on #ffffff (contrast ratio: 17.6:1)
+- Links: #2c7ae0 with hover state #1d56a8
+- Note components: #4285f4 border with #f0f4ff background
+- Tip components: #34a853 border with #e6f4ea background
+- Warning components: #fbbc04 border with #fef7e0 background
+
+### Alternative Text
+
+All images include descriptive alternative text:
+
+```mdx
+![Diagram showing the ROS 2 node graph with publisher and subscriber connections](/img/ros2-node-graph.png)
+```
+
+### Keyboard Navigation
+
+All interactive elements are accessible via keyboard:
+
+- Links and buttons can be accessed with Tab key
+- Focus indicators are clearly visible
+- Navigation components work with keyboard controls
+
+### ARIA Labels
+
+Interactive components use appropriate ARIA labels:
+
+- Navigation elements have proper roles
+- Interactive components have descriptive labels
+- Complex components have appropriate descriptions
+
+## Accessibility Components
+
+### Accessibility Notice Component
+
+Include accessibility information with the notice component:
+
+```mdx
+import AccessibilityNotice from '@site/src/components/AccessibilityNotice';
+
+<AccessibilityNotice>
+This chapter follows accessibility standards for educational materials, including sufficient color contrast, semantic headings, and alternative text for images.
+</AccessibilityNotice>
+```
+
+<AccessibilityNotice>
+This chapter follows accessibility standards for educational materials, including sufficient color contrast, semantic headings, and alternative text for images.
+</AccessibilityNotice>
+
+## Content Structure for Accessibility
+
+### Headings Hierarchy
+
+Follow a consistent heading hierarchy to enable screen readers to navigate content:
+
+1. H1: Chapter title (only one per chapter)
+2. H2: Major sections (Introduction, Core Concepts, etc.)
+3. H3: Subsections within major sections
+4. H4: Further subdivisions as needed
+
+### Lists Organization
+
+Organize information using proper list structures:
+
+- Use `<ul>` for unordered lists
+- Use `<ol>` for ordered, sequential steps
+- Use nested lists for hierarchical information
+- Maintain logical reading order
+
+### Link Descriptions
+
+Write link text that describes the destination:
+
+- Good: "Read more about ROS 2 basics"
+- Avoid: "Click here" or "Read more" without context
+
+## Technology Stack Accessibility
+
+### ROS 2 Content
+
+When discussing ROS 2 concepts, ensure examples are accessible:
+
+- Provide text descriptions of node graphs
+- Use clear, descriptive names for topics and services
+- Include alternative explanations for visual concepts
+
+### Simulation Content
+
+For simulation topics (Gazebo, Isaac Sim):
+
+- Provide text descriptions of visual elements
+- Explain visual indicators in text form
+- Describe spatial relationships in words
+
+### Code Examples
+
+Code examples follow accessibility standards:
+
+- Proper syntax highlighting
+- Descriptive file names and titles
+- Inline comments explaining Physical AI principles
+- Clear, descriptive variable and function names
+
+## Testing and Validation
+
+### Automated Testing
+
+The textbook content is regularly tested with:
+
+- axe-core accessibility testing
+- W3C Markup Validation Service
+- Link checking tools to ensure all resources are accessible
+
+### Manual Testing
+
+Content is manually tested with:
+
+- Keyboard-only navigation
+- Screen readers (NVDA, JAWS, VoiceOver)
+- High contrast mode
+- Zoom functionality (up to 400%)
+
+## Student Learning Accommodations
+
+### Multi-Modal Content
+
+Content is provided in multiple formats to support different learning needs:
+
+- Text descriptions with visual elements
+- Step-by-step instructions with visual guides
+- Conceptual explanations with practical examples
+- Theoretical concepts with hands-on activities
+
+### Progress Tracking
+
+Students can track their learning progress with:
+
+- Clear learning objectives at the start of each section
+- Summaries at the end of each section
+- Self-assessment questions
+- Practical exercises with solutions
+
+## Compliance with Physical AI Constitution
+
+Accessibility features support the Physical AI & Humanoid Robotics constitution by:
+
+- Ensuring all students can access Physical AI principles regardless of ability
+- Supporting the "Academic Rigor with Practical Application" requirement through multi-modal content
+- Enabling the "Progressive Learning Structure" through clear semantic hierarchy
+- Maintaining "Inter-Module Coherence" with consistent accessibility features across all modules
+
+## Reporting Accessibility Issues
+
+If you encounter accessibility issues with the textbook content, please report them to:
+
+- Accessibility feedback form: [link to form]
+- Email: accessibility@physical-ai-textbook.org
+- Contact details in the [Contact Us](/docs/contact) section

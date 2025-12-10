@@ -1,0 +1,8 @@
+<!-- This is a placeholder SVG favicon for Physical AI & Humanoid Robotics -->
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100">
+  <rect width="100" height="100" fill="#2563eb"/>
+  <text x="50" y="55" font-family="Arial, sans-serif" font-size="20" fill="white" text-anchor="middle">AI</text>
+  <circle cx="30" cy="30" r="8" fill="#93c5fd"/>
+  <circle cx="70" cy="30" r="8" fill="#93c5fd"/>
+  <rect x="40" y="50" width="20" height="20" fill="#f87171"/>
+</svg>
