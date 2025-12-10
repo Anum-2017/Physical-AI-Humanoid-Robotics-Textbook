@@ -37,8 +37,8 @@ const config = {
           // Please change this to your repo.
           // Remove this to remove the "edit this page" links.
           editUrl:
-            'https://github.com/Anum-2017/physical-ai-humanoid-robotics/edit/main/docs/',
-          // Keep docs at /docs route
+            'https://github.com/Anum-2017/Physical-AI-Humanoid-Robotics-Textbook/edit/main/docs/',
+          // Change docs route to avoid conflict with homepage
           routeBasePath: 'docs',
         },
         blog: false,

@@ -1,6 +1,5 @@
 ---
 title: Welcome to Physical AI & Humanoid Robotics
-slug: /
 ---
 
 import DocCardList from '@theme/DocCardList';
