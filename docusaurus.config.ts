@@ -112,10 +112,6 @@ const config: Config = {
           title: 'More',
           items: [
             {
-              label: 'Blog',
-              to: '/blog',
-            },
-            {
               label: 'GitHub',
               href: 'https://github.com/Anum-2017/Physical-AI-Humanoid-Robotics-Textbook',
             },
