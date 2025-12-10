@@ -11,9 +11,7 @@ const config = {
   // Set the /<baseUrl>/ pathname under which your site is served
   // For GitHub pages deployment, this is usually '/<project-name>/'
   // Use '/' for local development and the repo path for production builds
-  baseUrl: process.env.NODE_ENV === 'production'
-    ? '/Physical-AI-Humanoid-Robotics-Textbook/'
-    : '/',
+  baseUrl: '/Physical-AI-Humanoid-Robotics-Textbook/',
 
   // GitHub pages deployment config.
   organizationName: 'Anum-2017', // Usually your GitHub org/user name.
