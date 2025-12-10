@@ -14,7 +14,7 @@ const config = {
   baseUrl: '/Physical-AI-Humanoid-Robotics-Textbook/',
 
   // GitHub pages deployment config.
-  organizationName: 'Anum-2017', // Usually your GitHub org/user name.
+  organizationName: 'num-2017', // Usually your GitHub org/user name.
   projectName: 'Physical-AI-Humanoid-Robotics-Textbook', // Usually your repo name.
 
   onBrokenLinks: 'throw',
@@ -119,5 +119,3 @@ const config = {
 };
 
 module.exports = config;
-
-
