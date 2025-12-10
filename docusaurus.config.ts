@@ -68,18 +68,8 @@ const config: Config = {
       },
       items: [
         {
-          to: '/',
-          label: 'Home',
-          position: 'left'
-        },
-        {
           to: '/docs/intro',
-          label: 'Overview',
-          position: 'left'
-        },
-        {
-          to: '/docs/module-1-robotic-nervous-system-ros2/01-understanding-ros2-as-the-robot-nervous-system',
-          label: 'Modules',
+          label: 'Textbook',
           position: 'left'
         },
         {

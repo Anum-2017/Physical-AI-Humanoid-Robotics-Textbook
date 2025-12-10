@@ -10,7 +10,10 @@ const config = {
   url: 'https://anum-2017.github.io',
   // Set the /<baseUrl>/ pathname under which your site is served
   // For GitHub pages deployment, this is usually '/<project-name>/'
-  baseUrl: '/Physical-AI-Humanoid-Robotics-Textbook/',
+  // Use '/' for local development and the repo path for production builds
+  baseUrl: process.env.NODE_ENV === 'production'
+    ? '/Physical-AI-Humanoid-Robotics-Textbook/'
+    : '/',
 
   // GitHub pages deployment config.
   organizationName: 'Anum-2017', // Usually your GitHub org/user name.
@@ -62,18 +65,8 @@ const config = {
         },
         items: [
           {
-            to: '/', 
-            label: 'Home', 
-            position: 'left'
-          },
-          {
             to: '/docs/intro',
-            label: 'Overview',
-            position: 'left'
-          },
-          {
-            to: '/docs/module-1-robotic-nervous-system-ros2/01-understanding-ros2-as-the-robot-nervous-system', 
-            label: 'Modules', 
+            label: 'Textbook',
             position: 'left'
           },
           {
