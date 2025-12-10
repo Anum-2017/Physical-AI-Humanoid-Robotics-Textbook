@@ -2,28 +2,630 @@
  * CSS files with the .module.css suffix will be treated as CSS modules
  * and scoped locally.
  */
- 
- .heroBanner {
-  padding: 4rem 0;
+
+/* COLOR SCHEME */
+:root {
+  --primary-blue: #00D4FF;
+  --secondary-aqua: #00F5E6;
+  --dark-bg: #0A0E27;
+  --text-primary: #FFFFFF;
+  --text-secondary: #B0B8D4;
+}
+
+/* HERO SECTION */
+.heroBanner {
+  padding: 80px 0;
+  background: linear-gradient(135deg, #0A0E27 0%, #1a1f3a 50%, #0A0E27 100%);
+  position: relative;
+  overflow: hidden;
+  border-bottom: 2px solid rgba(0, 212, 255, 0.2);
+}
+
+.heroBanner::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: 
+    radial-gradient(circle at 20% 50%, rgba(0, 212, 255, 0.05) 0%, transparent 50%),
+    radial-gradient(circle at 80% 50%, rgba(0, 245, 230, 0.05) 0%, transparent 50%);
+  pointer-events: none;
+}
+
+.heroContainer {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 60px;
+  align-items: center;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 40px;
+  position: relative;
+  z-index: 1;
+}
+
+.heroContent {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+.heroTitle {
+  font-size: 3.5rem;
+  font-weight: 800;
+  background: linear-gradient(135deg, #00D4FF 0%, #00F5E6 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  margin: 0;
+  line-height: 1.2;
+  letter-spacing: -0.02em;
+}
+
+.heroSubtitle {
+  font-size: 1.1rem;
+  color: var(--text-secondary);
+  line-height: 1.8;
+  margin: 0;
+  max-width: 500px;
+}
+
+.heroButtons {
+  display: flex;
+  gap: 16px;
+  margin-top: 16px;
+}
+
+.btnPrimary,
+.btnSecondary {
+  display: inline-block;
+  padding: 12px 32px;
+  font-size: 1rem;
+  font-weight: 600;
+  text-decoration: none;
+  border-radius: 8px;
+  transition: all 0.3s ease;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  cursor: pointer;
+  border: none;
+}
+
+.btnPrimary {
+  background: linear-gradient(135deg, #00D4FF 0%, #00F5E6 100%);
+  color: #0A0E27;
+  box-shadow: 0 0 20px rgba(0, 212, 255, 0.3);
+}
+
+.btnPrimary:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 0 30px rgba(0, 212, 255, 0.5);
+}
+
+.btnSecondary {
+  background: transparent;
+  color: var(--primary-blue);
+  border: 2px solid var(--primary-blue);
+}
+
+.btnSecondary:hover {
+  background: var(--primary-blue);
+  color: #0A0E27;
+  transform: translateY(-2px);
+  box-shadow: 0 0 20px rgba(0, 212, 255, 0.3);
+}
+
+.heroImage {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.heroImg {
+  max-width: 100%;
+  height: auto;
+  filter: drop-shadow(0 0 30px rgba(0, 212, 255, 0.3));
+  animation: float 3s ease-in-out infinite;
+}
+
+@keyframes float {
+  0%, 100% {
+    transform: translateY(0px);
+  }
+  50% {
+    transform: translateY(-20px);
+  }
+}
+
+/* MODULES SECTION */
+.modulesSection {
+  padding: 120px 0;
+  background: linear-gradient(180deg, #0A0E27 0%, #1a1f3a 50%, #0A0E27 100%);
+  border-top: 2px solid rgba(0, 212, 255, 0.2);
+  border-bottom: 2px solid rgba(0, 212, 255, 0.2);
+}
+
+.sectionContainer {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 40px;
+}
+
+.sectionHeader {
   text-align: center;
+  margin-bottom: 80px;
+}
+
+.sectionTitle {
+  font-size: 2.8rem;
+  font-weight: 800;
+  color: var(--text-primary);
+  margin: 0 0 16px 0;
+  background: linear-gradient(135deg, #00D4FF 0%, #00F5E6 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.sectionSubtitle {
+  font-size: 1.1rem;
+  color: var(--text-secondary);
+  max-width: 600px;
+  margin: 0 auto;
+  line-height: 1.6;
+}
+
+.modulesGrid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 40px;
+}
+
+.moduleCard {
+  background: linear-gradient(135deg, rgba(26, 31, 58, 0.8) 0%, rgba(26, 31, 58, 0.4) 100%);
+  border: 1px solid rgba(0, 212, 255, 0.2);
+  border-radius: 12px;
+  overflow: hidden;
+  transition: all 0.3s ease;
+  display: flex;
+  flex-direction: column;
+}
+
+.moduleCard:hover {
+  border-color: rgba(0, 212, 255, 0.6);
+  box-shadow: 0 0 30px rgba(0, 212, 255, 0.2), inset 0 0 30px rgba(0, 245, 230, 0.05);
+  transform: translateY(-8px);
+}
+
+.moduleImageContainer {
+  width: 100%;
+  height: 300px;
+  overflow: hidden;
+  background: linear-gradient(135deg, rgba(0, 212, 255, 0.1) 0%, rgba(0, 245, 230, 0.1) 100%);
+}
+
+.moduleImage {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.3s ease;
+}
+
+.moduleCard:hover .moduleImage {
+  transform: scale(1.05);
+}
+
+.moduleContent {
+  padding: 32px;
+  flex-grow: 1;
+  display: flex;
+  flex-direction: column;
+}
+
+.moduleTitle {
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: var(--text-primary);
+  margin: 0 0 8px 0;
+}
+
+.moduleSubtitle {
+  font-size: 0.95rem;
+  color: var(--secondary-aqua);
+  font-weight: 600;
+  margin: 0 0 16px 0;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.moduleDescription {
+  font-size: 0.95rem;
+  color: var(--text-secondary);
+  line-height: 1.6;
+  margin: 0 0 24px 0;
+  flex-grow: 1;
+}
+
+.moduleButton {
+  display: inline-block;
+  padding: 10px 20px;
+  background: linear-gradient(135deg, #00D4FF 0%, #00F5E6 100%);
+  color: #0A0E27;
+  text-decoration: none;
+  border-radius: 6px;
+  font-weight: 600;
+  font-size: 0.9rem;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  transition: all 0.3s ease;
+  width: fit-content;
+}
+
+.moduleButton:hover {
+  box-shadow: 0 0 20px rgba(0, 212, 255, 0.4);
+  transform: translateX(4px);
+}
+
+/* WHY THIS BOOK SECTION */
+.whySection {
+  padding: 120px 0;
+  background: linear-gradient(180deg, #0A0E27 0%, #1a1f3a 50%, #0A0E27 100%);
+  border-bottom: 2px solid rgba(0, 212, 255, 0.2);
+}
+
+.benefitsGrid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 40px;
+}
+
+.benefitCard {
+  background: linear-gradient(135deg, rgba(26, 31, 58, 0.8) 0%, rgba(26, 31, 58, 0.4) 100%);
+  border: 1px solid rgba(0, 245, 230, 0.2);
+  border-radius: 12px;
+  padding: 40px;
+  transition: all 0.3s ease;
   position: relative;
   overflow: hidden;
 }
 
-@media screen and (max-width: 996px) {
-  .heroBanner {
-    padding: 2rem;
-  }
+.benefitCard::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: linear-gradient(135deg, rgba(0, 212, 255, 0.1) 0%, transparent 100%);
+  opacity: 0;
+  transition: opacity 0.3s ease;
 }
 
-.buttons {
+.benefitCard:hover {
+  border-color: rgba(0, 245, 230, 0.6);
+  box-shadow: 0 0 30px rgba(0, 245, 230, 0.2);
+  transform: translateY(-8px);
+}
+
+.benefitCard:hover::before {
+  opacity: 1;
+}
+
+.benefitCheckmark {
+  display: inline-block;
+  width: 40px;
+  height: 40px;
+  background: linear-gradient(135deg, #00D4FF 0%, #00F5E6 100%);
+  color: #0A0E27;
+  border-radius: 50%;
   display: flex;
   align-items: center;
   justify-content: center;
+  font-size: 1.5rem;
+  font-weight: bold;
+  margin-bottom: 16px;
+}
+
+.benefitTitle {
+  font-size: 1.3rem;
+  font-weight: 700;
+  color: var(--text-primary);
+  margin: 16px 0 8px 0;
+}
+
+.benefitSubtitle {
+  font-size: 0.9rem;
+  color: var(--secondary-aqua);
+  font-weight: 600;
+  margin: 0 0 12px 0;
+}
+
+.benefitDescription {
+  font-size: 0.95rem;
+  color: var(--text-secondary);
+  line-height: 1.6;
+  margin: 0;
+}
+
+/* HIGHLIGHTS SECTION */
+.highlightsSection {
+  padding: 120px 0;
+  background: linear-gradient(180deg, #0A0E27 0%, #1a1f3a 50%, #0A0E27 100%);
+  border-bottom: 2px solid rgba(0, 212, 255, 0.2);
+}
+
+.highlightsGrid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 30px;
+}
+
+.highlightCard {
+  background: linear-gradient(135deg, rgba(26, 31, 58, 0.8) 0%, rgba(26, 31, 58, 0.4) 100%);
+  border: 1px solid rgba(0, 212, 255, 0.2);
+  border-radius: 12px;
+  padding: 32px;
+  text-align: center;
+  transition: all 0.3s ease;
+}
+
+.highlightCard:hover {
+  border-color: rgba(0, 212, 255, 0.6);
+  box-shadow: 0 0 30px rgba(0, 212, 255, 0.2);
+  transform: translateY(-8px);
+}
+
+.highlightIcon {
+  width: 100%;
+  height: 80px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 16px;
+}
+
+.iconImage {
+  width: 80px;
+  height: 80px;
+  object-fit: contain;
+  filter: drop-shadow(0 0 10px rgba(0, 212, 255, 0.3));
+  transition: filter 0.3s ease;
+}
+
+.highlightCard:hover .iconImage {
+  filter: drop-shadow(0 0 20px rgba(0, 212, 255, 0.5));
+}
+
+.highlightTitle {
+  font-size: 1.1rem;
+  font-weight: 700;
+  color: var(--text-primary);
+  margin: 0 0 8px 0;
+}
+
+.highlightSubtitle {
+  font-size: 0.8rem;
+  color: var(--secondary-aqua);
+  font-weight: 600;
+  margin: 0 0 12px 0;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.highlightDescription {
+  font-size: 0.85rem;
+  color: var(--text-secondary);
+  line-height: 1.5;
+  margin: 0;
+}
+
+/* FOOTER */
+.footer {
+  background: linear-gradient(180deg, #0A0E27 0%, #1a1f3a 100%);
+  border-top: 2px solid rgba(0, 212, 255, 0.2);
+  padding: 60px 0 40px;
+  text-align: center;
+}
+
+.footerContent {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  align-items: center;
+}
+
+.footerTitle {
+  font-size: 1.5rem;
+  font-weight: 800;
+  background: linear-gradient(135deg, #00D4FF 0%, #00F5E6 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  margin: 0;
+}
+
+.footerSubtitle {
+  font-size: 0.95rem;
+  color: var(--text-secondary);
+  margin: 0;
+}
+
+.footerNav {
+  display: flex;
+  gap: 30px;
+  justify-content: center;
+}
+
+.footerNav a {
+  color: var(--text-secondary);
+  text-decoration: none;
+  font-weight: 600;
+  transition: color 0.3s ease;
+}
+
+.footerNav a:hover {
+  color: var(--primary-blue);
+}
+
+.copyright {
+  font-size: 0.85rem;
+  color: var(--text-secondary);
+  margin: 20px 0 0 0;
+  padding-top: 20px;
+  border-top: 1px solid rgba(0, 212, 255, 0.1);
+}
+
+/* RESPONSIVE DESIGN */
+@media (max-width: 1024px) {
+  .heroContainer {
+    grid-template-columns: 1fr;
+    gap: 40px;
+    padding: 0 30px;
+  }
+
+  .heroTitle {
+    font-size: 2.8rem;
+  }
+
+  .modulesGrid {
+    grid-template-columns: 1fr;
+    gap: 30px;
+  }
+
+  .benefitsGrid {
+    grid-template-columns: 1fr;
+    gap: 30px;
+  }
+
+  .highlightsGrid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 20px;
+  }
+
+  .heroBanner {
+    padding: 60px 0;
+  }
+
+  .modulesSection,
+  .whySection,
+  .highlightsSection {
+    padding: 80px 0;
+  }
+}
+
+@media (max-width: 768px) {
+  .heroContainer {
+    padding: 0 20px;
+  }
+
+  .heroTitle {
+    font-size: 2rem;
+  }
+
+  .heroSubtitle {
+    font-size: 1rem;
+  }
+
+  .btnPrimary,
+  .btnSecondary {
+    padding: 10px 24px;
+    font-size: 0.9rem;
+  }
+
+  .sectionContainer {
+    padding: 0 20px;
+  }
+
+  .sectionTitle {
+    font-size: 2rem;
+  }
+
+  .moduleCard,
+  .benefitCard,
+  .highlightCard {
+    padding: 24px;
+  }
+
+  .moduleContent {
+    padding: 24px;
+  }
+
+  .highlightsGrid {
+    grid-template-columns: 1fr;
+  }
+
+  .heroButtons {
+    flex-direction: column;
+  }
+
+  .btnPrimary,
+  .btnSecondary {
+    width: 100%;
+    text-align: center;
+  }
+
+  .heroBanner {
+    padding: 40px 0;
+  }
+
+  .modulesSection,
+  .whySection,
+  .highlightsSection {
+    padding: 60px 0;
+  }
+
+  .sectionHeader {
+    margin-bottom: 50px;
+  }
+
+  .modulesGrid,
+  .benefitsGrid {
+    gap: 20px;
+  }
+
+  .highlightsGrid {
+    gap: 15px;
+  }
+}
+
+@media (max-width: 480px) {
+  .heroTitle {
+    font-size: 1.5rem;
+  }
+
+  .heroSubtitle {
+    font-size: 0.9rem;
+  }
+
+  .sectionTitle {
+    font-size: 1.5rem;
+  }
+
+  .sectionSubtitle {
+    font-size: 0.9rem;
+  }
+
+  .moduleTitle {
+    font-size: 1.2rem;
+  }
+
+  .benefitTitle,
+  .highlightTitle {
+    font-size: 1rem;
+  }
+
+  .moduleImageContainer {
+    height: 200px;
+  }
+
+  .footerNav {
+    flex-direction: column;
+    gap: 15px;
+  }
 } 
-
-
-
 
 
 
