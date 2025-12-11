@@ -1,3 +1,4 @@
+
 import type {ReactNode} from 'react';
 import Link from '@docusaurus/Link';
 import useDocusaurusContext from '@docusaurus/useDocusaurusContext';
@@ -24,6 +25,13 @@ function HomepageHeader() {
               Explore Modules
             </Link>
           </div>
+        </div>
+        <div className={styles.heroImageWrapper}>
+          <img
+      src={require('@site/static/img/pixel-robot.png').default}
+      alt="Robot"
+      className={styles.heroRobot}
+    />
         </div>
       </div>
     </header>
@@ -173,4 +181,3 @@ export default function Home(): ReactNode {
     </Layout>
   );
 }
-
