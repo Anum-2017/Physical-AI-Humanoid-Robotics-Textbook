@@ -1,3 +1,4 @@
+
 /*
  * CSS files with the .module.css suffix will be treated as CSS modules
  * and scoped locally.
@@ -117,18 +118,45 @@
   box-shadow: 0 0 20px rgba(0, 212, 255, 0.3);
 }
 
-.heroImage {
+.heroContainer {
   position: relative;
   display: flex;
-  align-items: center;
-  justify-content: center;
+  align-items: flex-start;
+  justify-content: space-between;
+  padding-top: 20px; /* Keeps spacing consistent */
 }
 
-.heroImg {
-  max-width: 100%;
+.heroContent {
+  max-width: 600px;
+  z-index: 2;
+}
+
+/* Robot aligned to the right and slightly higher */
+.heroRobot {
+  position: absolute;
+  right: 0;
+  top: -10px;           /* Moved slightly UP */
+  width: 380px;
   height: auto;
-  filter: drop-shadow(0 0 30px rgba(0, 212, 255, 0.3));
-  animation: float 3s ease-in-out infinite;
+  z-index: 1;
+  pointer-events: none; /* Prevent hover issues */
+}
+
+/* Mobile View */
+@media (max-width: 900px) {
+  .heroRobot {
+    position: static;
+    margin: 1rem auto 0;
+    width: 250px;
+    display: block;
+    top: auto; /* Remove absolute top in mobile */
+  }
+
+  .heroContainer {
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+  }
 }
 
 @keyframes float {
@@ -626,7 +654,3 @@
     gap: 15px;
   }
 } 
-
-
-
-
