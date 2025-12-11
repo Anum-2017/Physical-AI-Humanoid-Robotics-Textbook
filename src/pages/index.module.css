@@ -63,6 +63,7 @@
   margin: 0;
   line-height: 1.2;
   letter-spacing: -0.02em;
+  text-align: center;
 }
 
 .heroSubtitle {
@@ -71,12 +72,15 @@
   line-height: 1.8;
   margin: 0;
   max-width: 500px;
+  text-align: center;
 }
 
 .heroButtons {
   display: flex;
   gap: 16px;
   margin-top: 16px;
+  align-items: center;
+  justify-content: center; 
 }
 
 .btnPrimary,
@@ -92,6 +96,7 @@
   letter-spacing: 0.05em;
   cursor: pointer;
   border: none;
+  align-items: center;
 }
 
 .btnPrimary {
