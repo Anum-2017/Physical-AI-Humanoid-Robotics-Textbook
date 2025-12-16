@@ -1,5 +1,6 @@
 ---
 title: "Welcome to Physical AI & Humanoid Robotics"
+sidebar_position: 1
 ---
 
 # Physical AI & Humanoid Robotics
@@ -32,7 +33,8 @@ Master the integration of **vision, language, and action** 🗣️🤖 in end-to
 
 Ready to dive into the world of Physical AI and Humanoid Robotics? Begin your journey with the first module:
 
-- [Start with Module 1: The Robotic Nervous System](./module-1-robotic-nervous-system-ros2/01-understanding-ros2-as-the-robot-nervous-system.mdx)
+- [Start with Module 1: The Robotic Nervous System](./category/module-1--the-robotic-nervous-system-ros-2)
+
 
 
 ## 🏗️ Key Principles of Physical AI
