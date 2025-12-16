@@ -1,3 +1,4 @@
+
 import type {ReactNode} from 'react';
 import Link from '@docusaurus/Link';
 import useDocusaurusContext from '@docusaurus/useDocusaurusContext';
@@ -7,6 +8,30 @@ import styles from './index.module.css';
 
 function HomepageHeader() {
   return (
+    <header className={styles.heroBanner}>
+      <div className={styles.heroContainer} style={{gridTemplateColumns: '1fr'}}>
+        <div className={styles.heroContent}>
+          <Heading as="h1" className={styles.heroTitle}>
+            Physical AI & Humanoid Robotics
+          </Heading>
+          <p className={styles.heroSubtitle}>
+            A complete guide to building intelligent humanoid robots using ROS 2, Digital Twins, NVIDIA Isaac, and Vision-Language-Action systems.
+          </p>
+          <div className={styles.heroButtons}>
+            <Link className={styles.btnPrimary} to="/docs/intro">
+              Start Learning
+            </Link>
+            <Link className={styles.btnSecondary} to="#modules">
+              Explore Modules
+            </Link>
+          </div>
+        </div>
+        <div className={styles.heroImageWrapper}>
+          <img
+      src={require('@site/static/img/pixel-robot.png').default}
+      alt="Robot"
+      className={styles.heroRobot}
+    />
     <header className={styles.heroBanner}>
       <div className={styles.heroContainer} style={{gridTemplateColumns: '1fr'}}>
         <div className={styles.heroContent}>
@@ -171,11 +196,15 @@ export default function Home(): ReactNode {
     <Layout
       title={`${siteConfig.title}`}
       description="A complete guide to building intelligent humanoid robots using ROS 2, Digital Twins, NVIDIA Isaac, and Vision-Language-Action systems.">
+      description="A complete guide to building intelligent humanoid robots using ROS 2, Digital Twins, NVIDIA Isaac, and Vision-Language-Action systems.">
       <HomepageHeader />
       <main>
         <ModulesSection />
         <WhyThisBookSection />
+        <ModulesSection />
+        <WhyThisBookSection />
       </main>
+      <Footer />
       <Footer />
     </Layout>
   );
