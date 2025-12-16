@@ -32,30 +32,6 @@ function HomepageHeader() {
       alt="Robot"
       className={styles.heroRobot}
     />
-    <header className={styles.heroBanner}>
-      <div className={styles.heroContainer} style={{gridTemplateColumns: '1fr'}}>
-        <div className={styles.heroContent}>
-          <Heading as="h1" className={styles.heroTitle}>
-            Physical AI & Humanoid Robotics
-          </Heading>
-          <p className={styles.heroSubtitle}>
-            A complete guide to building intelligent humanoid robots using ROS 2, Digital Twins, NVIDIA Isaac, and Vision-Language-Action systems.
-          </p>
-          <div className={styles.heroButtons}>
-            <Link className={styles.btnPrimary} to="/docs/intro">
-              Start Learning
-            </Link>
-            <Link className={styles.btnSecondary} to="#modules">
-              Explore Modules
-            </Link>
-          </div>
-        </div>
-        <div className={styles.heroImageWrapper}>
-          <img
-      src={require('@site/static/img/pixel-robot.png').default}
-      alt="Robot"
-      className={styles.heroRobot}
-    />
         </div>
       </div>
     </header>
@@ -84,24 +60,29 @@ function ModulesSection() {
       subtitle: 'ROS 2 & Real-Time Control',
       description: 'Master ROS 2, the industry-standard framework for robot control. Learn nodes, topics, services, and the complete communication architecture that powers every modern robot.',
       link: '/docs/category/module-1--the-robotic-nervous-system-ros-2',
+     // link: '/docs/module-1-robotic-nervous-system-ros2/understanding-ros2-as-the-robot-nervous-system',
+
     },
     {
       title: 'The Digital Twin',
       subtitle: 'Gazebo & Unity Simulation',
       description: 'Create photorealistic simulations of your robot in Gazebo and Unity. Master physics simulation, sensor modeling, and the complete pipeline from digital twin to real-world deployment.',
       link: '/docs/category/module-2--the-digital-twin-gazebo--unity',
+      // link: '/docs/module-2-digital-twin-gazebo-unity/concept-of-digital-twins-in-robotics',
     },
     {
       title: 'The AI-Robot Brain',
       subtitle: 'NVIDIA Isaac & GPU Acceleration',
       description: 'Implement advanced perception and control using NVIDIA Isaac. Harness GPU acceleration for real-time AI inference, computer vision, and autonomous decision-making.',
       link: '/docs/category/module-3--the-ai-robot-brain-nvidia-isaac',
+      // link: '/docs/module-3-ai-robot-brain-nvidia-isaac/introduction-to-isaac-sim',
     },
     {
       title: 'Vision-Language-Action',
       subtitle: 'Multimodal AI & Robot Control',
       description: 'Build robots that understand language and visual input. Implement VLA systems that translate human commands into precise robot actions through advanced multimodal AI.',
       link: '/docs/category/module-4--vision-language-action-vla',
+      // link: '/docs/module-4-vision-language-action-vla/the-vla-paradigm',
     },
   ];
 
@@ -196,15 +177,11 @@ export default function Home(): ReactNode {
     <Layout
       title={`${siteConfig.title}`}
       description="A complete guide to building intelligent humanoid robots using ROS 2, Digital Twins, NVIDIA Isaac, and Vision-Language-Action systems.">
-      description="A complete guide to building intelligent humanoid robots using ROS 2, Digital Twins, NVIDIA Isaac, and Vision-Language-Action systems.">
       <HomepageHeader />
       <main>
         <ModulesSection />
         <WhyThisBookSection />
-        <ModulesSection />
-        <WhyThisBookSection />
       </main>
-      <Footer />
       <Footer />
     </Layout>
   );
