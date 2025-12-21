@@ -4,7 +4,7 @@
 const config = {
   title: 'Physical AI & Humanoid Robotics',
   tagline: 'Mastering the Integration of Perception, Cognition, and Action in Embodied Intelligence Systems',
-  favicon: 'img/favicon.ico',
+  favicon: 'img/robot.jpg',
 
   // Set the production url of your site here
   url: 'https://anum-2017.github.io',
