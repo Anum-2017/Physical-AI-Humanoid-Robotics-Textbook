@@ -161,7 +161,7 @@ function Footer() {
         <p className={styles.footerSubtitle}>A Complete Guide to Building Intelligent Robots</p>
         <nav className={styles.footerNav}>
           <Link to="/">Home</Link>
-          <Link to="/docs/intro">Modules</Link>
+          <Link to="/docs/welcome">Modules</Link>
           <a href="https://github.com/Anum-2017/Physical-AI-Humanoid-Robotics-Textbook" target="_blank" rel="noopener noreferrer">
             GitHub
           </a>
