@@ -7,7 +7,7 @@ import type * as Preset from '@docusaurus/preset-classic';
 const config: Config = {
   title: 'Physical AI & Humanoid Robotics',
   tagline: 'Mastering the Integration of Perception, Cognition, and Action in Embodied Intelligence Systems',
-  favicon: 'img/favicon.ico',
+  favicon: 'img/robot.jpg',
 
   // Future flags, see https://docusaurus.io/docs/api/docusaurus-config#future
   future: {
