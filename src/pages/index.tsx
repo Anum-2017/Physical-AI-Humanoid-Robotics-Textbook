@@ -18,7 +18,7 @@ function HomepageHeader() {
             A complete guide to building intelligent humanoid robots using ROS 2, Digital Twins, NVIDIA Isaac, and Vision-Language-Action systems.
           </p>
           <div className={styles.heroButtons}>
-            <Link className={styles.btnPrimary} to="/docs/welcome">
+            <Link className={styles.btnPrimary} to="/docs/welcome/">
               Start Learning
             </Link>
             <Link className={styles.btnSecondary} to="#modules">
